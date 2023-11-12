@@ -29,7 +29,6 @@ export class TaskCreationComponent {
   }
 
   routeTaskList() {
-    // eslint-disable-next-line @typescript-eslint/no-empty-function
     this.router.navigate(['../taskList']).then(() => {});
   }
 }

@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {Router, RouterLink} from '@angular/router';
 import {LadenEnum} from '../shared/LadenEnum';
@@ -8,6 +8,7 @@ import {MatSort, MatSortModule, Sort} from '@angular/material/sort';
 import {MatTableDataSource, MatTableModule} from '@angular/material/table';
 import {MatButtonModule} from '@angular/material/button';
 import {MatIconModule} from '@angular/material/icon';
+import {TaskService} from '../service/task.service';
 
 export interface TaskItem {
   id: number;
@@ -30,15 +31,20 @@ const TASK_DATA: TaskItem[] = [
   templateUrl: './task-list.component.html',
   styleUrl: './task-list.component.scss'
 })
-export class TaskListComponent implements AfterViewInit{
+export class TaskListComponent implements AfterViewInit, OnInit{
 
   displayedColumns: string[] = ['id', 'betreff', 'erstellungsdatum', 'laden', 'status'];
   dataSource = new MatTableDataSource(TASK_DATA);
 
-  constructor(private _liveAnnouncer: LiveAnnouncer, private router: Router) {}
+  constructor(private _liveAnnouncer: LiveAnnouncer,
+              private router: Router,
+              private readonly taskService: TaskService) {}
 
   @ViewChild(MatSort) sort: MatSort | undefined;
 
+  ngOnInit() {
+    this.taskService.getTasks();
+  }
   ngAfterViewInit() {
     if (this.sort instanceof MatSort) {
       this.dataSource.sort = this.sort;
