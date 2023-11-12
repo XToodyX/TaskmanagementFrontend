@@ -1,11 +1,16 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {Router} from '@angular/router';
+import {HttpClient} from '@angular/common/http';
+import {Token} from './Token';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  constructor(private readonly router: Router) {}
+  loginError: boolean = false;
+  constructor(private readonly router: Router,
+              private readonly httpClient: HttpClient) {}
 
   isLoggedIn() {
     const token = localStorage.getItem('token'); // get token from local storage
@@ -21,8 +26,17 @@ export class AuthService {
   }
 
   login(username: string, password: string) {
-    console.log('Username: ' + username);
-    console.log('Password: ' + password);
+    this.httpClient.post<Token>('http://localhost:8080/api/v1/auth/authenticate', {username: username, password: password}, {}).subscribe({
+        next: (response: Token) => {
+            this.loginError = false;
+            localStorage.setItem('token', response.token);
+            this.router.navigate(['./myTasks']).then(() => {});
+            return false;
+        }, error: () => {
+            this.loginError = true;
+            return true;
+        }
+    });
   }
 }
 

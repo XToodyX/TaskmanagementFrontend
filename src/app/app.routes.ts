@@ -5,8 +5,8 @@ import {authenticationGuard} from './auth/guard/auth.guard';
 import {LoginComponent} from './login/login.component';
 
 export const appRoutes: Route[] = [
-  {path: 'login', component: LoginComponent},
   {path: 'myTasks', component: TaskListComponent, canActivate: [authenticationGuard()]},
   {path: 'taskCreation', component: TaskCreationComponent, canActivate: [authenticationGuard()]},
+  {path: 'login', component: LoginComponent},
   {path: '**', redirectTo: '/login', pathMatch: 'full'}
 ];

@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import {FormBuilder, ReactiveFormsModule, Validators} from '@angular/forms';
+import {Component, OnInit} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {NonNullableFormBuilder, ReactiveFormsModule, Validators} from '@angular/forms';
 import {AuthService} from '../auth/auth.service';
 import {MatButtonModule} from '@angular/material/button';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -11,10 +12,16 @@ import {MatButtonModule} from '@angular/material/button';
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit{
+
+
+  ngOnInit() {
+    if (this.authService.isLoggedIn()) this.router.navigate(['./myTasks']).then(() => {});
+  }
   constructor(
-    private readonly formBuilder: FormBuilder,
-    private readonly authService: AuthService
+      private readonly formBuilder: NonNullableFormBuilder,
+      readonly authService: AuthService,
+      private readonly router: Router
   ) {}
 
   loginForm = this.formBuilder.group({
@@ -23,6 +30,6 @@ export class LoginComponent {
   });
 
   initiateLogin() {
-    this.authService.login(this.loginForm.controls['username'].get.name, this.loginForm.controls['password'].get.name);
+    this.authService.login(this.loginForm.controls['username'].value, this.loginForm.controls['password'].value);
   }
 }
