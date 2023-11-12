@@ -1,0 +1,18 @@
+<mat-card class="m-10">
+  <form class="flex flex-col" [formGroup]="taskCreationForm" (ngSubmit)="onSubmit()">
+    <mat-form-field class="m-4">
+      <mat-label>Betreff</mat-label>
+      <input matInput id="betreff" type="text" formControlName="betreff">
+    </mat-form-field>
+
+    <mat-form-field class="ms-4 mb-4 ml-2 mr-2">
+      <mat-label>Beschreibung</mat-label>
+      <textarea matInput id="beschreibung" type="text" formControlName="beschreibung"></textarea>
+    </mat-form-field>
+
+    <div class="m-4">
+      <button mat-raised-button class="mr-2" color="primary" type="submit" [disabled]="taskCreationForm.invalid">Anlegen</button>
+      <button mat-raised-button (click)="routeTaskList()" type="button">Abbrechen</button>
+    </div>
+  </form>
+</mat-card>
