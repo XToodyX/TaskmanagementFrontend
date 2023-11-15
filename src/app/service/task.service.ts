@@ -10,10 +10,10 @@ export class TaskService {
 
   constructor(private readonly httpClient: HttpClient) { }
 
-  getTasks(): Observable<Task> {
+  getTasks(): Observable<Task[]> {
     const token = localStorage.getItem('token') ? localStorage.getItem('token'): '';
     const headers = { 'Authorization': `Bearer ${token}`};
-    // @ts-ignore
-    return this.httpClient.get<Task>('http://localhost:8080/api/v1/tasks', { headers });
+
+    return this.httpClient.get<Task[]>('http://localhost:8080/api/v1/tasks?username=dommi420', { headers });
   }
 }
