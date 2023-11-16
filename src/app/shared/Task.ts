@@ -5,7 +5,7 @@ export interface Task {
   description: string;
   creator: string;
   location: LadenEnum;
-  creationDate: string;
+  creationDate?: string;
   assignee: string;
-  status: string;
+  status?: string;
 }

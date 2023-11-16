@@ -1,4 +1,5 @@
 export enum LadenEnum {
   Coburg = 'Coburg',
-  Bamberg = 'Bamberg'
+  Bamberg = 'Bamberg',
+  Zentrale = 'Zentrale',
 }
