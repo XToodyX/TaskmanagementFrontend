@@ -9,11 +9,6 @@
     "test": "jest",
     "lint": "ng lint"
   },
-  "jest": {
-    "preset": "jest-preset-angular",
-    "setupTestFrameworkScriptFile": "<rootDir>/setup-jest.ts",
-    "globalSetup": "jest-preset-angular/global-setup"
-  },
   "private": true,
   "dependencies": {
     "@angular/animations": "^17.0.0",
