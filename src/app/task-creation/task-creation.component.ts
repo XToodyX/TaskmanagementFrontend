@@ -22,7 +22,7 @@ export class TaskCreationComponent {
 
   protected readonly LadenEnum = LadenEnum;
 
-  assignees: string[] = ['Max Müller', 'Sonja Bernd'];
+  assignees: string[] = ['Sven Herrmann', 'Dominic Herrmann'];
 
   taskCreationForm = this.formBuilder.group({
     subject: this.formBuilder.control('', [Validators.required]),
