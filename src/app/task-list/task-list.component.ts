@@ -65,4 +65,12 @@ export class TaskListComponent implements AfterViewInit, OnInit {
     // eslint-disable-next-line @typescript-eslint/no-empty-function
     this.router.navigate(['./taskCreation']).then(() => {});
   }
+
+  onTaskChange(task: Task) {
+    // --> Sending backend request with task id that i first have to implement in the backend
+    this.taskService.updateTask(task).subscribe((data: Task) => {
+      console.log('It worked good');
+      console.log(data);
+    });
+  }
 }

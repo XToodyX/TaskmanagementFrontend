@@ -8,8 +8,8 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatInputModule} from '@angular/material/input';
 import {MatSelectModule} from '@angular/material/select';
 import {TaskService} from '../service/task.service';
-import {Task} from '../shared/Task';
 import {LadenEnum} from '../shared/LadenEnum';
+import {TaskCreation} from '../shared/TaskCreation';
 
 @Component({
   selector: 'app-task-creation',
@@ -36,7 +36,7 @@ export class TaskCreationComponent {
               private router: Router) { }
 
   onSubmit(): void {
-    const newTask: Task = {
+    const newTask: TaskCreation = {
       subject: this.taskCreationForm.controls.subject.value,
       description: this.taskCreationForm.controls.description.value,
       creator: this.taskCreationForm.controls.creator.value,
