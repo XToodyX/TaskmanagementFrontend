@@ -9,17 +9,21 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatIconModule} from '@angular/material/icon';
 import {TaskService} from '../service/task.service';
 import {Task} from '../shared/Task';
+import {MatSelectModule} from '@angular/material/select';
 
 @Component({
   selector: 'app-task-list',
   standalone: true,
-  imports: [CommonModule, MatTableModule, MatSortModule, MatIconModule, MatButtonModule, RouterLink],
+  imports: [CommonModule, MatTableModule, MatSortModule, MatIconModule, MatButtonModule, RouterLink, MatSelectModule],
   templateUrl: './task-list.component.html',
   styleUrl: './task-list.component.scss'
 })
 export class TaskListComponent implements AfterViewInit, OnInit {
 
+  protected readonly StatusEnum = StatusEnum;
+
   displayedColumns: string[] = ['subject', 'creationDate', 'location', 'status'];
+
   dataSource: MatTableDataSource<Task> = new MatTableDataSource();
 
   constructor(private _liveAnnouncer: LiveAnnouncer,
@@ -56,8 +60,6 @@ export class TaskListComponent implements AfterViewInit, OnInit {
       this._liveAnnouncer.announce('Sorting cleared');
     }
   }
-
-  protected readonly StatusEnum = StatusEnum;
 
   routeTaskCreation() {
     // eslint-disable-next-line @typescript-eslint/no-empty-function

@@ -20,7 +20,6 @@ import {LadenEnum} from '../shared/LadenEnum';
 })
 export class TaskCreationComponent {
 
-  protected readonly LadenEnum = LadenEnum;
 
   assignees: string[] = ['Sven Herrmann', 'Dominic Herrmann'];
 
@@ -58,4 +57,6 @@ export class TaskCreationComponent {
   routeTaskList() {
     this.router.navigate(['../taskList']).then(() => {});
   }
+
+  protected readonly LadenEnum = LadenEnum;
 }

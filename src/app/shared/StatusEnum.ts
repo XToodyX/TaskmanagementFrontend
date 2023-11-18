@@ -1,6 +1,6 @@
 export enum StatusEnum {
   Offen = 'Offen',
-  InArbeit = 'In Arbeit',
+  Bearbeitung = 'Bearbeitung',
   Erledigt = 'Erledigt',
   Blockiert = 'Blockiert'
 }
