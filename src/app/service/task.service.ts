@@ -12,9 +12,13 @@ export class TaskService {
   constructor(private readonly httpClient: HttpClient) { }
 
   getTasks(): Observable<Task[]> {
-    return this.httpClient.get<Task[]>('http://localhost:8080/api/v1/tasks?username=dommi420', { headers: this.getHeaders() });
+    return this.httpClient.get<Task[]>('http://localhost:8080/api/v1/tasks', { headers: this.getHeaders() });
   }
 
+  getTaskById(taskId: number | undefined): Observable<Task> {
+    // On empty taskId (basically not possible) send message to notification service to create error message
+    return this.httpClient.get<Task>(`http://localhost:8080/api/v1/tasks/${taskId}`, { headers: this.getHeaders() });
+  }
   createTask(task: TaskCreation): Observable<Task> {
     return this.httpClient.post<Task>('http://localhost:8080/api/v1/tasks', task, { headers: this.getHeaders()});
   }

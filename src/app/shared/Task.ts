@@ -1,4 +1,5 @@
 import {LadenEnum} from './LadenEnum';
+import {StatusEnum} from './StatusEnum';
 
 export interface Task {
   taskId: number,
@@ -8,5 +9,5 @@ export interface Task {
   location: LadenEnum;
   creationDate?: string;
   assignee: string;
-  status?: string;
+  status?: StatusEnum;
 }
