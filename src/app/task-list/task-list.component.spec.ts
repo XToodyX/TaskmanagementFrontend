@@ -10,7 +10,7 @@ import {Task} from '../shared/Task';
 
 const ui = {
   rowHeader: byRole('row', {name: 'Betreff Erstellungsdatum Laden Status'}),
-  rowDataFirst: byRole('row', {name: 'Subject CreationDate Zentrale Offen'}),
+  rowDataFirst: byRole('row', {name: 'Subject CreationDate Zentrale Wähle den Status'}),
   rows: byRole('row'),
   tableEmptyState: byText('Keine Aufgaben vorhanden'),
   addTaskButton: byRole('button', {name: 'Hinzufügen'})
@@ -82,6 +82,7 @@ describe('TaskListComponent',() => {
 
   function getSampleTasks(): Task[] {
     return [{
+      taskId: 12,
       subject: 'Subject',
       description: 'Description',
       creator: 'Creator',

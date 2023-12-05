@@ -5,3 +5,20 @@
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.open-select {
+  color: red !important;
+}
+
+.in-work-select {
+  color: blue !important;
+}
+
+.done-select {
+  color: green !important;
+}
+
+.blocked-select {
+  color: black !important;
+}
+

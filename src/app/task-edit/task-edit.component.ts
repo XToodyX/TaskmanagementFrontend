@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {CommonModule} from '@angular/common';
 import {MatButtonModule} from '@angular/material/button';
 import {MatCardModule} from '@angular/material/card';
 import {MatFormFieldModule} from '@angular/material/form-field';
@@ -11,18 +11,20 @@ import {LadenEnum} from '../shared/LadenEnum';
 import {TaskService} from '../service/task.service';
 import {StatusEnum} from '../shared/StatusEnum';
 import {Task} from '../shared/Task';
+import {TaskUpdate} from '../shared/TaskUpdate';
+import {RouterLink} from '@angular/router';
 
 @Component({
   selector: 'app-task-edit',
   standalone: true,
-    imports: [CommonModule, MatButtonModule, MatCardModule, MatFormFieldModule, MatInputModule, MatOptionModule, MatSelectModule, ReactiveFormsModule],
+  imports: [CommonModule, MatButtonModule, MatCardModule, MatFormFieldModule, MatInputModule, MatOptionModule, MatSelectModule, ReactiveFormsModule, RouterLink],
   templateUrl: './task-edit.component.html',
   styleUrl: './task-edit.component.scss'
 })
 export class TaskEditComponent implements OnInit {
 
-  @Input() taskId: number | undefined = 1;
-  assignees: string[] = ['Sven Herrmann', 'Dominic Herrmann'];
+  @Input() taskId: number = 1;
+  assignees: string[] = ['Sven Herrmann', 'Dominic Herrmann', 'Peter Parker'];
 
   constructor(private readonly taskService: TaskService,
               private formBuilder: NonNullableFormBuilder) { }
@@ -54,9 +56,16 @@ export class TaskEditComponent implements OnInit {
   });
 
   onSubmit() {
-    // Send updated task
-  }
+    const task: TaskUpdate = {
+      taskId: this.taskId,
+      subject: this.taskEditForm.controls.subject.value,
+      description: this.taskEditForm.controls.description.value,
+      creator: this.taskEditForm.controls.creator.value,
+      assignee: this.taskEditForm.controls.assignee.value,
+      status: this.taskEditForm.controls.status.value
+    };
 
-  protected readonly LadenEnum = LadenEnum;
+    this.taskService.updateTask(task).subscribe(() => {});
+  }
   protected readonly StatusEnum = StatusEnum;
 }

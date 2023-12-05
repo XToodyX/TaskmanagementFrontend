@@ -10,6 +10,7 @@ import {MatIconModule} from '@angular/material/icon';
 import {TaskService} from '../service/task.service';
 import {Task} from '../shared/Task';
 import {MatSelectModule} from '@angular/material/select';
+import {TaskUpdate} from '../shared/TaskUpdate';
 
 @Component({
   selector: 'app-task-list',
@@ -66,11 +67,8 @@ export class TaskListComponent implements AfterViewInit, OnInit {
     this.router.navigate(['./taskCreation']).then(() => {});
   }
 
-  onTaskChange(task: Task) {
+  onTaskChange(task: TaskUpdate) {
     // --> Sending backend request with task id that i first have to implement in the backend
-    this.taskService.updateTask(task).subscribe((data: Task) => {
-      console.log('It worked good');
-      console.log(data);
-    });
+    this.taskService.updateTask(task).subscribe(() => {});
   }
 }

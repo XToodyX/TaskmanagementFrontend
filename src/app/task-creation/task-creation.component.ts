@@ -1,7 +1,7 @@
 import {Component} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {NonNullableFormBuilder, ReactiveFormsModule, Validators} from '@angular/forms';
-import {Router} from '@angular/router';
+import {Router, RouterLink} from '@angular/router';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatCardModule} from '@angular/material/card';
 import {MatButtonModule} from '@angular/material/button';
@@ -14,7 +14,7 @@ import {TaskCreation} from '../shared/TaskCreation';
 @Component({
   selector: 'app-task-creation',
   standalone: true,
-  imports: [CommonModule, MatFormFieldModule, MatCardModule, ReactiveFormsModule, MatButtonModule, MatInputModule, MatSelectModule],
+  imports: [CommonModule, MatFormFieldModule, MatCardModule, ReactiveFormsModule, MatButtonModule, MatInputModule, MatSelectModule, RouterLink],
   templateUrl: './task-creation.component.html',
   styleUrl: './task-creation.component.scss'
 })
@@ -46,16 +46,11 @@ export class TaskCreationComponent {
 
     this.taskService.createTask(newTask).subscribe({
       next: () => {
-        console.log('Erfolgreich angelegt');
         this.taskCreationForm.reset();
-        this.routeTaskList();
+        this.router.navigate(['../myTasks']).then(() => {});
       }, error: () => {
-        console.log('Es ist etwas schief gelaufen, bitte versuche es erneut');
-      }});
-  }
 
-  routeTaskList() {
-    this.router.navigate(['../taskList']).then(() => {});
+      }});
   }
 
   protected readonly LadenEnum = LadenEnum;
