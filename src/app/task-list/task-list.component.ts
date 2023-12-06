@@ -11,6 +11,8 @@ import {TaskService} from '../service/task.service';
 import {Task} from '../shared/Task';
 import {MatSelectModule} from '@angular/material/select';
 import {TaskUpdate} from '../shared/TaskUpdate';
+import {AuthService} from '../auth/auth.service';
+import {ClaimEnum} from '../shared/ClaimEnum';
 
 @Component({
   selector: 'app-task-list',
@@ -29,7 +31,8 @@ export class TaskListComponent implements AfterViewInit, OnInit {
 
   constructor(private _liveAnnouncer: LiveAnnouncer,
               private router: Router,
-              private readonly taskService: TaskService) {}
+              private readonly taskService: TaskService,
+              readonly authService: AuthService) {}
 
   @ViewChild(MatSort) sort: MatSort | undefined;
 
@@ -71,4 +74,6 @@ export class TaskListComponent implements AfterViewInit, OnInit {
     // --> Sending backend request with task id that i first have to implement in the backend
     this.taskService.updateTask(task).subscribe(() => {});
   }
+
+  protected readonly ClaimEnum = ClaimEnum;
 }

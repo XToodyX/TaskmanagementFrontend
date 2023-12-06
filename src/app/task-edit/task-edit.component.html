@@ -51,7 +51,8 @@
     <p class="ms-4 mb-4 ml-2 mr-2">Erstellt am: {{taskEditForm.controls.creationDate.value}}</p>
 
     <div class="m-4">
-      <button mat-raised-button class="mr-2" color="primary" type="submit" [disabled]="taskEditForm.invalid">Speichern</button>
+      <button mat-raised-button class="mr-2" color="primary" type="submit"
+              [disabled]="taskEditForm.invalid || !authService.hasClaim(ClaimEnum.CHANGE)">Speichern</button>
       <button mat-raised-button type="button" routerLink="../myTasks">Abbrechen</button>
     </div>
   </form>

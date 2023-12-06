@@ -21,7 +21,7 @@ import {TaskCreation} from '../shared/TaskCreation';
 export class TaskCreationComponent {
 
 
-  assignees: string[] = ['Sven Herrmann', 'Dominic Herrmann'];
+  assignees: string[] = ['Dominic Herrmann', 'Peter Parker'];
 
   taskCreationForm = this.formBuilder.group({
     subject: this.formBuilder.control('', [Validators.required]),

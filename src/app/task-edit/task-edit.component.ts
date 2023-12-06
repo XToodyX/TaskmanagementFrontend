@@ -13,6 +13,8 @@ import {StatusEnum} from '../shared/StatusEnum';
 import {Task} from '../shared/Task';
 import {TaskUpdate} from '../shared/TaskUpdate';
 import {RouterLink} from '@angular/router';
+import {AuthService} from '../auth/auth.service';
+import {ClaimEnum} from '../shared/ClaimEnum';
 
 @Component({
   selector: 'app-task-edit',
@@ -27,9 +29,14 @@ export class TaskEditComponent implements OnInit {
   assignees: string[] = ['Sven Herrmann', 'Dominic Herrmann', 'Peter Parker'];
 
   constructor(private readonly taskService: TaskService,
-              private formBuilder: NonNullableFormBuilder) { }
+              private formBuilder: NonNullableFormBuilder,
+              readonly authService: AuthService) { }
 
   ngOnInit() {
+    if (!this.authService.hasClaim(ClaimEnum.CHANGE)) {
+      this.taskEditForm.disable();
+    }
+
     this.taskService.getTaskById(this.taskId).subscribe((task: Task) => {
       this.taskEditForm.controls['subject'].setValue(task.subject);
       this.taskEditForm.controls['description'].setValue(task.description);
@@ -68,4 +75,5 @@ export class TaskEditComponent implements OnInit {
     this.taskService.updateTask(task).subscribe(() => {});
   }
   protected readonly StatusEnum = StatusEnum;
+  protected readonly ClaimEnum = ClaimEnum;
 }

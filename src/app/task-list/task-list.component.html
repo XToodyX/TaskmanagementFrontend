@@ -34,7 +34,8 @@
       <td mat-cell *matCellDef="let element">
         <mat-form-field style="margin-bottom: -1.25em;" class="p-2">
           <mat-label>Wähle den Status</mat-label>
-          <mat-select [(value)]="element.status" (valueChange)="onTaskChange(element)"
+          <mat-select [disabled]="!authService.hasClaim(ClaimEnum.CHANGE)"
+                      [(value)]="element.status" (valueChange)="onTaskChange(element)"
                       [class.open-select]="element.status === StatusEnum.Offen"
                       [class.in-work-select]="element.status === StatusEnum.Bearbeitung"
                       [class.done-select]="element.status === StatusEnum.Erledigt"
@@ -58,7 +59,8 @@
     <p class="text-red-700 p-6 text-center">Keine Aufgaben vorhanden</p>
   </ng-container>
 
-  <button class="mt-5 mr-4 mb-4" color="primary" mat-fab extended="" (click)="routeTaskCreation()">
+  <button class="mt-5 mr-4 mb-4" color="primary" mat-fab extended="" (click)="routeTaskCreation()"
+          [disabled]="!authService.hasClaim(ClaimEnum.WRITE)">
     <mat-icon>add</mat-icon>
     Hinzufügen
   </button>

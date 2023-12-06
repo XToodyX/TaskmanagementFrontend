@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {Router} from '@angular/router';
 import {HttpClient} from '@angular/common/http';
 import {Token} from './Token';
+import {ClaimEnum} from '../shared/ClaimEnum';
 
 
 @Injectable({
@@ -37,6 +38,20 @@ export class AuthService {
             return true;
         }
     });
+  }
+
+  getClaimsFromToken(): string[] {
+    const token = localStorage.getItem('token'); // get token from local storage
+
+    if (token != null) {
+      const payload = atob(token.split('.')[1]); // decode payload of token
+      return JSON.parse(payload).claims;
+    }
+    return [''];
+  }
+
+  hasClaim(claim: ClaimEnum) {
+    return this.getClaimsFromToken().includes(claim);
   }
 }
 
