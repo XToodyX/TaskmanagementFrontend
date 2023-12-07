@@ -67,7 +67,7 @@ export class TaskListComponent implements AfterViewInit, OnInit {
 
   routeTaskCreation() {
     // eslint-disable-next-line @typescript-eslint/no-empty-function
-    this.router.navigate(['./taskCreation']).then(() => {});
+    this.router.navigate(['../taskCreation']).then(() => {});
   }
 
   onTaskChange(task: TaskUpdate) {
@@ -76,4 +76,8 @@ export class TaskListComponent implements AfterViewInit, OnInit {
   }
 
   protected readonly ClaimEnum = ClaimEnum;
+
+  routeToTaskEdit(taskId: string) {
+    this.router.navigate([`../myTasks/${taskId}`]).then(() => {});
+  }
 }

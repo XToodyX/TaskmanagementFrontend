@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {MatButtonModule} from '@angular/material/button';
 import {MatCardModule} from '@angular/material/card';
@@ -12,7 +12,7 @@ import {TaskService} from '../service/task.service';
 import {StatusEnum} from '../shared/StatusEnum';
 import {Task} from '../shared/Task';
 import {TaskUpdate} from '../shared/TaskUpdate';
-import {RouterLink} from '@angular/router';
+import {ActivatedRoute, RouterLink} from '@angular/router';
 import {AuthService} from '../auth/auth.service';
 import {ClaimEnum} from '../shared/ClaimEnum';
 
@@ -25,18 +25,21 @@ import {ClaimEnum} from '../shared/ClaimEnum';
 })
 export class TaskEditComponent implements OnInit {
 
-  @Input() taskId: number = 1;
+  taskId: number = 0;
   assignees: string[] = ['Sven Herrmann', 'Dominic Herrmann', 'Peter Parker'];
 
   constructor(private readonly taskService: TaskService,
               private formBuilder: NonNullableFormBuilder,
-              readonly authService: AuthService) { }
+              readonly authService: AuthService,
+              private route: ActivatedRoute) { }
 
   ngOnInit() {
     if (!this.authService.hasClaim(ClaimEnum.CHANGE)) {
       this.taskEditForm.disable();
     }
-
+    this.route.url.subscribe((value) => {
+      this.taskId = +value[1].path;
+    });
     this.taskService.getTaskById(this.taskId).subscribe((task: Task) => {
       this.taskEditForm.controls['subject'].setValue(task.subject);
       this.taskEditForm.controls['description'].setValue(task.description);

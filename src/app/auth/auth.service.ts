@@ -22,7 +22,7 @@ export class AuthService {
 
       return parsedPayload.exp > Date.now() / 1000; // check if token is expired
     }
-    this.router.navigate(['./login']).then(() => {});
+    this.router.navigate(['../login']).then(() => {});
     return false;
   }
 
