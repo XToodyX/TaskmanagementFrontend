@@ -10,6 +10,8 @@ import {MatSelectModule} from '@angular/material/select';
 import {TaskService} from '../service/task.service';
 import {LadenEnum} from '../shared/LadenEnum';
 import {TaskCreation} from '../shared/TaskCreation';
+import {AuthService} from '../auth/auth.service';
+import {ClaimEnum} from '../shared/ClaimEnum';
 
 @Component({
   selector: 'app-task-creation',
@@ -20,28 +22,24 @@ import {TaskCreation} from '../shared/TaskCreation';
 })
 export class TaskCreationComponent {
 
-
-  assignees: string[] = ['Dominic Herrmann', 'Peter Parker'];
-
   taskCreationForm = this.formBuilder.group({
     subject: this.formBuilder.control('', [Validators.required]),
     description: this.formBuilder.control('', [Validators.required]),
-    location: this.formBuilder.control(LadenEnum.Zentrale, [Validators.required]),
-    creator: this.formBuilder.control('', [Validators.required]),
-    assignee: this.formBuilder.control('', [Validators.required])
+    location: this.formBuilder.control(''),
+    creator: this.formBuilder.control('', [Validators.required])
   });
 
   constructor(private readonly taskService: TaskService,
               private formBuilder: NonNullableFormBuilder,
-              private router: Router) { }
+              private router: Router,
+              readonly authService: AuthService) { }
 
   onSubmit(): void {
     const newTask: TaskCreation = {
       subject: this.taskCreationForm.controls.subject.value,
       description: this.taskCreationForm.controls.description.value,
       creator: this.taskCreationForm.controls.creator.value,
-      location: this.taskCreationForm.controls.location.value,
-      assignee: this.taskCreationForm.controls.assignee.value
+      location: this.taskCreationForm.controls.location.value
     };
 
     this.taskService.createTask(newTask).subscribe({
@@ -54,4 +52,5 @@ export class TaskCreationComponent {
   }
 
   protected readonly LadenEnum = LadenEnum;
+  protected readonly ClaimEnum = ClaimEnum;
 }
