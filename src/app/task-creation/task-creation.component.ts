@@ -12,15 +12,18 @@ import {LadenEnum} from '../shared/LadenEnum';
 import {TaskCreation} from '../shared/TaskCreation';
 import {AuthService} from '../auth/auth.service';
 import {ClaimEnum} from '../shared/ClaimEnum';
+import {MatIconModule} from '@angular/material/icon';
 
 @Component({
   selector: 'app-task-creation',
   standalone: true,
-  imports: [CommonModule, MatFormFieldModule, MatCardModule, ReactiveFormsModule, MatButtonModule, MatInputModule, MatSelectModule, RouterLink],
+  imports: [CommonModule, MatFormFieldModule, MatCardModule, MatIconModule, ReactiveFormsModule, MatButtonModule, MatInputModule, MatSelectModule, RouterLink],
   templateUrl: './task-creation.component.html',
   styleUrl: './task-creation.component.scss'
 })
 export class TaskCreationComponent {
+
+  images: string[] = [];
 
   taskCreationForm = this.formBuilder.group({
     subject: this.formBuilder.control('', [Validators.required]),
@@ -28,6 +31,9 @@ export class TaskCreationComponent {
     location: this.formBuilder.control(''),
     creator: this.formBuilder.control('', [Validators.required])
   });
+
+  protected readonly LadenEnum = LadenEnum;
+  protected readonly ClaimEnum = ClaimEnum;
 
   constructor(private readonly taskService: TaskService,
               private formBuilder: NonNullableFormBuilder,
@@ -39,7 +45,8 @@ export class TaskCreationComponent {
       subject: this.taskCreationForm.controls.subject.value,
       description: this.taskCreationForm.controls.description.value,
       creator: this.taskCreationForm.controls.creator.value,
-      location: this.taskCreationForm.controls.location.value
+      location: this.taskCreationForm.controls.location.value,
+      images: this.images
     };
 
     this.taskService.createTask(newTask).subscribe({
@@ -51,6 +58,16 @@ export class TaskCreationComponent {
       }});
   }
 
-  protected readonly LadenEnum = LadenEnum;
-  protected readonly ClaimEnum = ClaimEnum;
+  onFileSelected(event: any) {
+    const fileList: File[] = event.target.files;
+    this.images = [];
+
+    for (const file of fileList) {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => {
+        this.images.push(reader.result as string);
+      };
+    }
+  }
 }

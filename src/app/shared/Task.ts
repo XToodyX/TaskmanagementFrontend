@@ -10,4 +10,5 @@ export interface Task {
   creationDate?: string;
   assignee: string;
   status?: StatusEnum;
+  images: string[];
 }

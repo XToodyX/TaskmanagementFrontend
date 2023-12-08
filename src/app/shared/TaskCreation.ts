@@ -5,4 +5,5 @@ export interface TaskCreation {
   description: string;
   creator: string;
   location: LadenEnum | string;
+  images: string[];
 }

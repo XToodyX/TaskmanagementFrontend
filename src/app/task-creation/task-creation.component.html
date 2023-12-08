@@ -18,7 +18,6 @@
       <mat-select id="location" formControlName="location" required>
         <mat-option *ngFor="let location of LadenEnum | keyvalue" [value]="location.key">{{location.key}}</mat-option>
       </mat-select>
-      <mat-error *ngIf="taskCreationForm.controls.location.hasError('required')">Bitte wähle den jeweiligen Ort des Problems aus</mat-error>
     </mat-form-field>
 
     <mat-form-field class="ms-4 mb-4 ml-2 mr-2">
@@ -26,6 +25,14 @@
       <textarea matInput id="creator" type="text" formControlName="creator"></textarea>
       <mat-error *ngIf="taskCreationForm.controls.creator.hasError('required')">Bitte gebe hier deinen Namen ein, somit können später eventuelle Rückfragen gestellt werden</mat-error>
     </mat-form-field>
+
+    <div class="ms-4 mb-4 ml-2 mr-2">
+      <input type="file" accept="image/png, image/jpeg" (change)="onFileSelected($event)" multiple>
+
+      <div  class="flex flex-row flex-wrap mt-2 w-full space-x-1 space-y-1">
+        <img *ngFor="let image of images" [src]="image" alt="image" class="object-scale-down" height="100px" width="150px">
+      </div>
+    </div>
 
     <div class="m-4">
       <button mat-raised-button class="mr-2" color="primary" type="submit" [disabled]="taskCreationForm.invalid">Anlegen</button>

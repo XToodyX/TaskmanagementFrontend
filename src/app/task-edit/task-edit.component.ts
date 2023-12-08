@@ -27,6 +27,7 @@ export class TaskEditComponent implements OnInit {
 
   taskId: number = 0;
   assignees: string[] = ['Sven Herrmann', 'Dominic Herrmann', 'Peter Parker'];
+  images: string[] = [];
 
   constructor(private readonly taskService: TaskService,
               private formBuilder: NonNullableFormBuilder,
@@ -49,6 +50,7 @@ export class TaskEditComponent implements OnInit {
       if (task.status != undefined) {
         this.taskEditForm.controls['status'].setValue(task.status);
       }
+      this.images = task.images;
       if (task.creationDate != null) {
         this.taskEditForm.controls['creationDate'].setValue(task.creationDate);
       }
@@ -72,11 +74,25 @@ export class TaskEditComponent implements OnInit {
       description: this.taskEditForm.controls.description.value,
       creator: this.taskEditForm.controls.creator.value,
       assignee: this.taskEditForm.controls.assignee.value,
-      status: this.taskEditForm.controls.status.value
+      status: this.taskEditForm.controls.status.value,
+      images: this.images
     };
 
     this.taskService.updateTask(task).subscribe(() => {});
   }
   protected readonly StatusEnum = StatusEnum;
   protected readonly ClaimEnum = ClaimEnum;
+
+  onFileSelected(event: any) {
+    const fileList: File[] = event.target.files;
+
+    this.images = [];
+    for (const file of fileList) {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => {
+        this.images.push(reader.result as string);
+      };
+    }
+  }
 }

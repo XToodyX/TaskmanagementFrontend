@@ -48,6 +48,14 @@
       </mat-select>
     </mat-form-field>
 
+    <div class="ms-4 mb-4 ml-2 mr-2">
+      <input *ngIf="authService.hasClaim(ClaimEnum.CHANGE)" type="file" accept="image/png, image/jpeg"
+             (change)="onFileSelected($event)" multiple>
+      <div  class="flex flex-row flex-wrap mt-2 w-full space-x-1 space-y-1">
+        <img *ngFor="let image of images" [src]="image" alt="image" class="object-scale-down" height="100px" width="150px">
+      </div>
+    </div>
+
     <p class="ms-4 mb-4 ml-2 mr-2">Erstellt am: {{taskEditForm.controls.creationDate.value}}</p>
 
     <div class="m-4">
