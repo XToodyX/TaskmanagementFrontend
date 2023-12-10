@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, Input, OnInit, ViewChild} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {Router, RouterLink} from '@angular/router';
 import {StatusEnum} from '../shared/StatusEnum';
@@ -13,17 +13,20 @@ import {MatSelectModule} from '@angular/material/select';
 import {TaskUpdate} from '../shared/TaskUpdate';
 import {AuthService} from '../auth/auth.service';
 import {ClaimEnum} from '../shared/ClaimEnum';
+import {MatTabsModule} from '@angular/material/tabs';
 
 @Component({
   selector: 'app-task-list',
   standalone: true,
-  imports: [CommonModule, MatTableModule, MatSortModule, MatIconModule, MatButtonModule, RouterLink, MatSelectModule],
+  imports: [CommonModule, MatTableModule, MatSortModule, MatIconModule, MatButtonModule, RouterLink, MatSelectModule, MatTabsModule],
   templateUrl: './task-list.component.html',
   styleUrl: './task-list.component.scss'
 })
 export class TaskListComponent implements AfterViewInit, OnInit {
 
   protected readonly StatusEnum = StatusEnum;
+
+  @Input() archived: boolean = false;
 
   displayedColumns: string[] = ['subject', 'creationDate', 'location', 'status'];
 
@@ -37,7 +40,7 @@ export class TaskListComponent implements AfterViewInit, OnInit {
   @ViewChild(MatSort) sort: MatSort | undefined;
 
   ngOnInit() {
-    this.taskService.getTasks().subscribe((tasks: Task[]) => {
+    this.taskService.getTasks(this.archived).subscribe((tasks: Task[]) => {
       tasks.forEach((task: Task) => {
         const newData: Task[] = [ ...this.dataSource.data];
         newData.push(task);
