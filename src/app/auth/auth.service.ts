@@ -14,15 +14,17 @@ export class AuthService {
               private readonly httpClient: HttpClient) {}
 
   isLoggedIn() {
-    const token = localStorage.getItem('token'); // get token from local storage
+    const token: string | null = localStorage.getItem('token'); // get token from local storage
 
     if (token != null) {
       const payload = atob(token.split('.')[1]); // decode payload of token
       const parsedPayload = JSON.parse(payload); // convert payload into an Object
 
-      return parsedPayload.exp > Date.now() / 1000; // check if token is expired
+      if (parsedPayload.exp > Date.now() / 1000) { // check if token is expired
+        return true;
+      }
+      localStorage.removeItem('token'); // remove token from local storage
     }
-    this.router.navigate(['../login']).then(() => {});
     return false;
   }
 
@@ -41,7 +43,7 @@ export class AuthService {
   }
 
   getClaimsFromToken(): string[] {
-    const token = localStorage.getItem('token'); // get token from local storage
+    const token: string | null = localStorage.getItem('token'); // get token from local storage
 
     if (token != null) {
       const payload = atob(token.split('.')[1]); // decode payload of token
