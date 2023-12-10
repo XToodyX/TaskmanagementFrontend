@@ -38,12 +38,12 @@
                   [class.open-select]="taskEditForm.controls.status.value === StatusEnum.Offen"
                   [class.in-work-select]="taskEditForm.controls.status.value === StatusEnum.Bearbeitung"
                   [class.done-select]="taskEditForm.controls.status.value === StatusEnum.Erledigt"
-                  [class.blocked-select]="taskEditForm.controls.status.value === StatusEnum.Blockiert">
+                  [class.blocked-select]="taskEditForm.controls.status.value === StatusEnum.Weitergeleitet">
         <mat-option *ngFor="let state of StatusEnum | keyvalue" [value]="state.key"
                     [class.open-select]="state.value === StatusEnum.Offen"
                     [class.in-work-select]="state.value === StatusEnum.Bearbeitung"
                     [class.done-select]="state.value === StatusEnum.Erledigt"
-                    [class.blocked-select]="state.value === StatusEnum.Blockiert"
+                    [class.blocked-select]="state.value === StatusEnum.Weitergeleitet"
         >{{state.key}}</mat-option>
       </mat-select>
     </mat-form-field>

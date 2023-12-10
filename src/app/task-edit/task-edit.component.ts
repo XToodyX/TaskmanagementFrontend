@@ -63,7 +63,7 @@ export class TaskEditComponent implements OnInit {
     location: this.formBuilder.control(LadenEnum.Zentrale, [Validators.required]),
     creator: this.formBuilder.control('', [Validators.required]),
     assignee: this.formBuilder.control('', [Validators.required]),
-    status: this.formBuilder.control(StatusEnum.Blockiert, [Validators.required]),
+    status: this.formBuilder.control(StatusEnum.Weitergeleitet, [Validators.required]),
     creationDate: this.formBuilder.control('', [Validators.required])
   });
 
