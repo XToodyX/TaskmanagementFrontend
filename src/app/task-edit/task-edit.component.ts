@@ -86,7 +86,6 @@ export class TaskEditComponent implements OnInit {
   onFileSelected(event: any) {
     const fileList: File[] = event.target.files;
 
-    this.images = [];
     for (const file of fileList) {
       const reader = new FileReader();
       reader.readAsDataURL(file);
