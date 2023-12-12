@@ -44,7 +44,7 @@ export class TaskEditComponent implements OnInit {
     this.taskService.getTaskById(this.taskId).subscribe((task: Task) => {
       this.taskEditForm.controls['subject'].setValue(task.subject);
       this.taskEditForm.controls['description'].setValue(task.description);
-      this.taskEditForm.controls['location'].setValue(task.location);
+      this.taskEditForm.controls['location'].setValue(LadenEnum[task.location as keyof typeof LadenEnum]);
       this.taskEditForm.controls['creator'].setValue(task.creator);
       this.taskEditForm.controls['assignee'].setValue(task.assignee);
       if (task.status != undefined) {
@@ -60,7 +60,7 @@ export class TaskEditComponent implements OnInit {
   taskEditForm = this.formBuilder.group({
     subject: this.formBuilder.control('', [Validators.required]),
     description: this.formBuilder.control('', [Validators.required]),
-    location: this.formBuilder.control(LadenEnum.Zentrale, [Validators.required]),
+    location: this.formBuilder.control('', [Validators.required]),
     creator: this.formBuilder.control('', [Validators.required]),
     assignee: this.formBuilder.control('', [Validators.required]),
     status: this.formBuilder.control(StatusEnum.Weitergeleitet, [Validators.required]),

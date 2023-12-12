@@ -16,7 +16,7 @@
     <mat-form-field *ngIf="this.authService.hasClaim(ClaimEnum.CHANGE)" class="ms-4 mb-4 ml-2 mr-2">
       <mat-label>Ort</mat-label>
       <mat-select id="location" formControlName="location" required>
-        <mat-option *ngFor="let location of LadenEnum | keyvalue" [value]="location.key">{{location.key}}</mat-option>
+        <mat-option *ngFor="let location of LadenEnum | keyvalue" [value]="location.key">{{location.value}}</mat-option>
       </mat-select>
     </mat-form-field>
 
