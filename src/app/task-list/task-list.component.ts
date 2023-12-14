@@ -81,6 +81,6 @@ export class TaskListComponent implements AfterViewInit, OnInit {
   protected readonly ClaimEnum = ClaimEnum;
 
   routeToTaskEdit(taskId: string) {
-    this.router.navigate([`../myTasks/${taskId}`]).then(() => {});
+    this.router.navigate([`../tasks/${taskId}`]).then(() => {});
   }
 }

@@ -16,7 +16,7 @@ export class LoginComponent implements OnInit{
 
 
   ngOnInit() {
-    if (this.authService.isLoggedIn()) this.router.navigate(['./myTasks']).then(() => {});
+    if (this.authService.isLoggedIn()) this.router.navigate(['./tasks']).then(() => {});
   }
   constructor(
       private readonly formBuilder: NonNullableFormBuilder,

@@ -52,7 +52,7 @@ export class TaskCreationComponent {
     this.taskService.createTask(newTask).subscribe({
       next: () => {
         this.taskCreationForm.reset();
-        this.router.navigate(['../myTasks']).then(() => {});
+        this.router.navigate(['../tasks']).then(() => {});
       }, error: () => {
 
       }});

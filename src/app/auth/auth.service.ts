@@ -33,7 +33,7 @@ export class AuthService {
         next: (response: Token) => {
             this.loginError = false;
             localStorage.setItem('token', response.token);
-            this.router.navigate(['./myTasks']).then(() => {});
+            this.router.navigate(['./tasks']).then(() => {});
             return false;
         }, error: () => {
             this.loginError = true;

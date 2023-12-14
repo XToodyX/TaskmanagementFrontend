@@ -6,8 +6,8 @@ import {TaskEditComponent} from './task-edit/task-edit.component';
 import {TaskOverviewComponent} from './task-overview/task-overview.component';
 
 export const appRoutes: Route[] = [
-  {path: 'myTasks/:id', component: TaskEditComponent, canActivate: [authenticationGuard()]},
-  {path: 'myTasks', component: TaskOverviewComponent, canActivate: [authenticationGuard()]},
+  {path: 'tasks/:id', component: TaskEditComponent, canActivate: [authenticationGuard()]},
+  {path: 'tasks', component: TaskOverviewComponent, canActivate: [authenticationGuard()]},
   {path: 'taskCreation', component: TaskCreationComponent, canActivate: [authenticationGuard()]},
   {path: 'login', component: LoginComponent},
   {path: '**', redirectTo: '/login', pathMatch: 'full'}
