@@ -12,8 +12,8 @@ export class TaskService {
 
   constructor(private readonly httpClient: HttpClient) { }
 
-  getTasks(archived: boolean): Observable<Task[]> {
-    return this.httpClient.get<Task[]>(`http://localhost:8080/api/v1/tasks?archived=${archived}`, { headers: this.getHeaders() });
+  getTasks(tab: string | undefined): Observable<Task[]> {
+    return this.httpClient.get<Task[]>(`http://localhost:8080/api/v1/tasks?tabGroup=${tab}`, { headers: this.getHeaders() });
   }
 
   getTaskById(taskId: number | undefined): Observable<Task> {

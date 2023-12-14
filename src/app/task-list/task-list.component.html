@@ -1,5 +1,5 @@
 <div class="m-10">
-  <button *ngIf="!archived" class="mt-5 mr-4 mb-4 green-button" mat-fab extended="" (click)="routeTaskCreation()"
+  <button *ngIf="!tab" class="mt-5 mr-4 mb-4 green-button" mat-fab extended="" (click)="routeTaskCreation()"
           [disabled]="!authService.hasClaim(ClaimEnum.WRITE)">
     <mat-icon>add</mat-icon>
     Hinzufügen

@@ -26,7 +26,7 @@ export class TaskListComponent implements AfterViewInit, OnInit {
 
   protected readonly StatusEnum = StatusEnum;
 
-  @Input() archived: boolean = false;
+  @Input() tab: string = 'open';
 
   displayedColumns: string[] = ['subject', 'creationDate', 'location', 'status'];
 
@@ -40,7 +40,7 @@ export class TaskListComponent implements AfterViewInit, OnInit {
   @ViewChild(MatSort) sort: MatSort | undefined;
 
   ngOnInit() {
-    this.taskService.getTasks(this.archived).subscribe((tasks: Task[]) => {
+    this.taskService.getTasks(this.tab).subscribe((tasks: Task[]) => {
       tasks.forEach((task: Task) => {
         const newData: Task[] = [ ...this.dataSource.data];
         newData.push(task);
