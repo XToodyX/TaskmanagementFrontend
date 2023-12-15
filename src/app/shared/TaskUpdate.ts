@@ -7,5 +7,6 @@ export interface TaskUpdate {
   creator: string,
   assignee: string,
   status: StatusEnum
+  forwardedTo: string,
   images: string[];
 }

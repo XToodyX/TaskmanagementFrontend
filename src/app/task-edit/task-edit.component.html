@@ -25,11 +25,7 @@
 
     <mat-form-field class="ms-4 mb-4 ml-2 mr-2">
       <mat-label>Bearbeiter</mat-label>
-      <mat-select id="assignee" formControlName="assignee" required>
-        <mat-option *ngFor="let assignee of assignees" [value]="assignee">{{assignee}}</mat-option>
-      </mat-select>
-
-      <mat-error *ngIf="taskEditForm.controls.assignee.hasError('required')">Bitte wähle einen Bearbeiter aus</mat-error>
+      <input matInput id="assignee" type="text" formControlName="assignee" readonly>
     </mat-form-field>
 
     <mat-form-field class="ms-4 mb-4 ml-2 mr-2">
@@ -46,6 +42,11 @@
                     [class.blocked-select]="state.value === StatusEnum.Weitergeleitet"
         >{{state.key}}</mat-option>
       </mat-select>
+    </mat-form-field>
+
+    <mat-form-field *ngIf="taskEditForm.controls.status.value === StatusEnum.Weitergeleitet" class="ms-4 mb-4 ml-2 mr-2">
+      <mat-label>Weitergeleitet an ...</mat-label>
+      <input matInput id="forwardedTo" type="text" formControlName="forwardedTo">
     </mat-form-field>
 
     <div class="ms-4 mb-4 ml-2 mr-2">

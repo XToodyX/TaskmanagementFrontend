@@ -11,4 +11,5 @@ export interface Task {
   assignee: string;
   status?: StatusEnum;
   images: string[];
+  forwardedTo: string | undefined;
 }

@@ -26,7 +26,6 @@ import {ClaimEnum} from '../shared/ClaimEnum';
 export class TaskEditComponent implements OnInit {
 
   taskId: number = 0;
-  assignees: string[] = ['Sven Herrmann', 'Dominic Herrmann', 'Peter Parker'];
   images: string[] = [];
 
   constructor(private readonly taskService: TaskService,
@@ -54,6 +53,9 @@ export class TaskEditComponent implements OnInit {
       if (task.creationDate != null) {
         this.taskEditForm.controls['creationDate'].setValue(task.creationDate);
       }
+      if (task.forwardedTo != undefined) {
+        this.taskEditForm.controls['forwardedTo'].setValue(task.forwardedTo);
+      }
     });
   }
 
@@ -63,7 +65,8 @@ export class TaskEditComponent implements OnInit {
     location: this.formBuilder.control('', [Validators.required]),
     creator: this.formBuilder.control('', [Validators.required]),
     assignee: this.formBuilder.control('', [Validators.required]),
-    status: this.formBuilder.control(StatusEnum.Weitergeleitet, [Validators.required]),
+    status: this.formBuilder.control(StatusEnum.Bearbeitung, [Validators.required]),
+    forwardedTo: this.formBuilder.control(''),
     creationDate: this.formBuilder.control('', [Validators.required])
   });
 
@@ -75,6 +78,7 @@ export class TaskEditComponent implements OnInit {
       creator: this.taskEditForm.controls.creator.value,
       assignee: this.taskEditForm.controls.assignee.value,
       status: this.taskEditForm.controls.status.value,
+      forwardedTo: this.taskEditForm.controls.forwardedTo.value,
       images: this.images
     };
 

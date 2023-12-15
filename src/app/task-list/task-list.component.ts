@@ -14,11 +14,13 @@ import {TaskUpdate} from '../shared/TaskUpdate';
 import {AuthService} from '../auth/auth.service';
 import {ClaimEnum} from '../shared/ClaimEnum';
 import {MatTabsModule} from '@angular/material/tabs';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {MatInputModule} from '@angular/material/input';
 
 @Component({
   selector: 'app-task-list',
   standalone: true,
-  imports: [CommonModule, MatTableModule, MatSortModule, MatIconModule, MatButtonModule, RouterLink, MatSelectModule, MatTabsModule],
+  imports: [CommonModule, MatTableModule, MatSortModule, MatIconModule, MatButtonModule, RouterLink, MatSelectModule, MatTabsModule, FormsModule, MatInputModule, ReactiveFormsModule],
   templateUrl: './task-list.component.html',
   styleUrl: './task-list.component.scss'
 })
@@ -40,6 +42,10 @@ export class TaskListComponent implements AfterViewInit, OnInit {
   @ViewChild(MatSort) sort: MatSort | undefined;
 
   ngOnInit() {
+    if (this.tab === 'forwarded') {
+      this.displayedColumns.push('forwardedTo');
+    }
+
     this.taskService.getTasks(this.tab).subscribe((tasks: Task[]) => {
       tasks.forEach((task: Task) => {
         const newData: Task[] = [ ...this.dataSource.data];
