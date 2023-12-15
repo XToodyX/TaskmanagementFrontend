@@ -7,6 +7,8 @@ import {of} from 'rxjs';
 import {LadenEnum} from '../shared/LadenEnum';
 import {StatusEnum} from '../shared/StatusEnum';
 import {Task} from '../shared/Task';
+import {AuthService} from '../auth/auth.service';
+import {createMock} from '@testing-library/angular/jest-utils';
 
 const ui = {
   rowHeader: byRole('row', {name: 'Betreff Erstellungsdatum Laden Status'}),
@@ -33,12 +35,20 @@ describe('TaskListComponent',() => {
   it('should render table data',  async () => {
     // arrange
     await render(TaskListComponent, {
+      imports: [
+        HttpClientTestingModule
+      ],
       providers: [
         {
           provide: TaskService,
           useValue: {
             getTasks: () => { return of(getSampleTasks()); }
-          }}
+          }
+        },
+        {
+          provide: AuthService,
+          useValue: createMock(AuthService)
+        }
       ]
     });
 
@@ -51,6 +61,9 @@ describe('TaskListComponent',() => {
   it('should render table empty state',  async () => {
     // arrange
     await render(TaskListComponent, {
+      imports: [
+          HttpClientTestingModule
+      ],
       providers: [
         {
           provide: TaskService,
@@ -67,6 +80,9 @@ describe('TaskListComponent',() => {
   it('should render add task button',  async () => {
     // arrange
     await render(TaskListComponent, {
+      imports: [
+          HttpClientTestingModule
+      ],
       providers: [
         {
           provide: TaskService,
@@ -89,7 +105,9 @@ describe('TaskListComponent',() => {
       location: LadenEnum.Zentrale,
       creationDate: 'CreationDate',
       assignee: 'Assignee',
-      status: StatusEnum.Offen
+      status: StatusEnum.Offen,
+      images: [],
+      forwardedTo: ''
     }];
   }
 });
