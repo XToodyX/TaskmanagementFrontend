@@ -75,7 +75,7 @@ export class TaskService {
     return this.httpClient.put<Task>('http://localhost:8080/api/v1/tasks', task, { headers: this.getHeaders() })
       .pipe(
         tap(() => {
-          this.notificationService.createSuccessNotification('Aufgabe erfolgreich aktualisiert.');
+          this.router.navigate(['../tasks']).then(() => {});
         }),
         catchError((httpErrorResponse: HttpErrorResponse) => {
             if (httpErrorResponse.status === 401) {
