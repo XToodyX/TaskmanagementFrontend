@@ -60,12 +60,8 @@ export class TaskCreationComponent {
       next: () => {
         this.taskCreationForm.reset();
         this.loading.set(false);
-        this.router.navigate(['../tasks']).then(() => {
-          this.notificationService.createSuccessNotification('Aufgabe erfolgreich erstellt');
-        });
       }, error: () => {
         this.loading.set(false);
-        this.notificationService.createErrorNotification('Aufgabe konnte nicht erstellt werden');
       }});
   }
 

@@ -91,12 +91,8 @@ export class TaskEditComponent implements OnInit {
     this.taskService.updateTask(task).subscribe({
       next: () => {
         this.loading.set(false);
-        this.router.navigate(['../tasks']).then(() => {
-          this.notificationService.createSuccessNotification('Änderungen wurden erfolgreich gespeichert.');
-        });
       }, error: () => {
         this.loading.set(false);
-        this.notificationService.createErrorNotification('Es ist ein Fehler aufgetreten. Probieren Sie es später erneut.');
       }
     });
   }
