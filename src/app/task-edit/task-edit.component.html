@@ -59,9 +59,10 @@
 
     <p class="ms-4 mb-4 ml-2 mr-2">Erstellt am: {{taskEditForm.controls.creationDate.value}}</p>
 
-    <div class="m-4">
-      <button mat-raised-button class="mr-2" color="primary" type="submit"
+    <div class="flex m-4 gap-3">
+      <button *ngIf="!loading()" mat-raised-button class="mr-2" color="primary" type="submit"
               [disabled]="taskEditForm.invalid || !authService.hasClaim(ClaimEnum.CHANGE)">Speichern</button>
+      <mat-spinner *ngIf="loading()" diameter="35"></mat-spinner>
       <button mat-raised-button type="button" routerLink="../../tasks">Abbrechen</button>
     </div>
   </form>

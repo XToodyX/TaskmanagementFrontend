@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, signal, WritableSignal} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {MatButtonModule} from '@angular/material/button';
 import {MatCardModule} from '@angular/material/card';
@@ -12,14 +12,15 @@ import {TaskService} from '../service/task.service';
 import {StatusEnum} from '../shared/StatusEnum';
 import {Task} from '../shared/Task';
 import {TaskUpdate} from '../shared/TaskUpdate';
-import {ActivatedRoute, RouterLink} from '@angular/router';
+import {ActivatedRoute, Router, RouterLink} from '@angular/router';
 import {AuthService} from '../auth/auth.service';
 import {ClaimEnum} from '../shared/ClaimEnum';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 @Component({
   selector: 'app-task-edit',
   standalone: true,
-  imports: [CommonModule, MatButtonModule, MatCardModule, MatFormFieldModule, MatInputModule, MatOptionModule, MatSelectModule, ReactiveFormsModule, RouterLink],
+  imports: [CommonModule, MatButtonModule, MatCardModule, MatFormFieldModule, MatInputModule, MatOptionModule, MatSelectModule, ReactiveFormsModule, RouterLink, MatProgressSpinnerModule],
   templateUrl: './task-edit.component.html',
   styleUrl: './task-edit.component.scss'
 })
@@ -31,7 +32,8 @@ export class TaskEditComponent implements OnInit {
   constructor(private readonly taskService: TaskService,
               private formBuilder: NonNullableFormBuilder,
               readonly authService: AuthService,
-              private route: ActivatedRoute) { }
+              private route: ActivatedRoute,
+              private readonly router: Router) { }
 
   ngOnInit() {
     if (!this.authService.hasClaim(ClaimEnum.CHANGE)) {
@@ -71,6 +73,8 @@ export class TaskEditComponent implements OnInit {
   });
 
   onSubmit() {
+    this.loading.set(true);
+
     const task: TaskUpdate = {
       taskId: this.taskId,
       subject: this.taskEditForm.controls.subject.value,
@@ -82,10 +86,19 @@ export class TaskEditComponent implements OnInit {
       images: this.images
     };
 
-    this.taskService.updateTask(task).subscribe(() => {});
+    this.taskService.updateTask(task).subscribe({
+      next: () => {
+        this.loading.set(false);
+        this.router.navigate(['../tasks']).then(() => {});
+      }, error: () => {
+        this.loading.set(false);
+        // Auslagern in Globalen Handler
+      }
+    });
   }
   protected readonly StatusEnum = StatusEnum;
   protected readonly ClaimEnum = ClaimEnum;
+  loading: WritableSignal<boolean> = signal<boolean>(false);
 
   onFileSelected(event: any) {
     const fileList: File[] = event.target.files;

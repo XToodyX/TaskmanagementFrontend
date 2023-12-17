@@ -34,8 +34,11 @@
       </div>
     </div>
 
-    <div class="m-4">
-      <button mat-raised-button class="mr-2" color="primary" type="submit" [disabled]="taskCreationForm.invalid">Anlegen</button>
+    <div class="flex m-4 gap-3">
+      <button *ngIf="!loading()" mat-raised-button class="mr-2" color="primary" type="submit" [disabled]="taskCreationForm.invalid">
+        Anlegen
+      </button>
+      <mat-spinner *ngIf="loading()" diameter="35"></mat-spinner>
       <button mat-raised-button routerLink="../tasks" type="button">Abbrechen</button>
     </div>
   </form>
