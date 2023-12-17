@@ -2,6 +2,12 @@
   <app-navbar></app-navbar>
 </header>
 <main>
+  <div class="fixed z-50 right-14 top-16">
+    <div class="m-4" *ngFor="let notification of notificationService.notifications()">
+      <app-notification [notificationId]=notification.id [iconName]=notification.iconName
+                        [message]=notification.message></app-notification>
+    </div>
+  </div>
   <router-outlet></router-outlet>
 </main>
 

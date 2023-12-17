@@ -16,6 +16,7 @@ import {ActivatedRoute, Router, RouterLink} from '@angular/router';
 import {AuthService} from '../auth/auth.service';
 import {ClaimEnum} from '../shared/ClaimEnum';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import {NotificationService} from '../service/notification.service';
 
 @Component({
   selector: 'app-task-edit',
@@ -33,7 +34,8 @@ export class TaskEditComponent implements OnInit {
               private formBuilder: NonNullableFormBuilder,
               readonly authService: AuthService,
               private route: ActivatedRoute,
-              private readonly router: Router) { }
+              private readonly router: Router,
+              private readonly notificationService: NotificationService) { }
 
   ngOnInit() {
     if (!this.authService.hasClaim(ClaimEnum.CHANGE)) {
@@ -89,10 +91,12 @@ export class TaskEditComponent implements OnInit {
     this.taskService.updateTask(task).subscribe({
       next: () => {
         this.loading.set(false);
-        this.router.navigate(['../tasks']).then(() => {});
+        this.router.navigate(['../tasks']).then(() => {
+          this.notificationService.createSuccessNotification('Änderungen wurden erfolgreich gespeichert.');
+        });
       }, error: () => {
         this.loading.set(false);
-        // Auslagern in Globalen Handler
+        this.notificationService.createErrorNotification('Es ist ein Fehler aufgetreten. Probieren Sie es später erneut.');
       }
     });
   }

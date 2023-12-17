@@ -14,6 +14,7 @@ import {AuthService} from '../auth/auth.service';
 import {ClaimEnum} from '../shared/ClaimEnum';
 import {MatIconModule} from '@angular/material/icon';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import {NotificationService} from '../service/notification.service';
 
 @Component({
   selector: 'app-task-creation',
@@ -37,10 +38,12 @@ export class TaskCreationComponent {
   protected readonly ClaimEnum = ClaimEnum;
   loading: WritableSignal<boolean> = signal(false);
 
+
   constructor(private readonly taskService: TaskService,
               private formBuilder: NonNullableFormBuilder,
               private router: Router,
-              readonly authService: AuthService) { }
+              readonly authService: AuthService,
+              private notificationService: NotificationService) { }
 
   onSubmit(): void {
     this.loading.set(true);
@@ -57,10 +60,12 @@ export class TaskCreationComponent {
       next: () => {
         this.taskCreationForm.reset();
         this.loading.set(false);
-        this.router.navigate(['../tasks']).then(() => {});
+        this.router.navigate(['../tasks']).then(() => {
+          this.notificationService.createSuccessNotification('Aufgabe erfolgreich erstellt');
+        });
       }, error: () => {
         this.loading.set(false);
-        // Auslagern in Globalen Handler
+        this.notificationService.createErrorNotification('Aufgabe konnte nicht erstellt werden');
       }});
   }
 
