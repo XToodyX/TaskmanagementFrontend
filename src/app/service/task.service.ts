@@ -23,8 +23,9 @@ export class TaskService {
       .pipe(
         catchError((httpErrorResponse: HttpErrorResponse) => {
           if (httpErrorResponse.status === 401) {
-            this.notificationService.createErrorNotification('Ihre Sitzung ist abgelaufen. Bitte melden Sie sich erneut an.');
-            this.router.navigate(['login']).then(() => {});
+            this.router.navigate(['login']).then(() => {
+              this.notificationService.createErrorNotification('Ihre Sitzung ist abgelaufen. Bitte melden Sie sich erneut an.');
+            });
           } else {
             this.notificationService.createErrorNotification(
               httpErrorResponse.error.message ? httpErrorResponse.error.message : 'Aufgaben konnten nicht geladen werden. Bitte versuche es später erneut.');
@@ -40,8 +41,9 @@ export class TaskService {
       .pipe(
         catchError((httpErrorResponse: HttpErrorResponse) => {
             if (httpErrorResponse.status === 401) {
-              this.notificationService.createErrorNotification('Ihre Sitzung ist abgelaufen. Bitte melden Sie sich erneut an.');
-              this.router.navigate(['login']).then(() => {});
+              this.router.navigate(['login']).then(() => {
+                this.notificationService.createErrorNotification('Ihre Sitzung ist abgelaufen. Bitte melden Sie sich erneut an.');
+              });
             } else {
               this.notificationService.createErrorNotification(
                 httpErrorResponse.error.message ? httpErrorResponse.error.message : 'Aufgabe konnten nicht geladen werden. Bitte versuche es später erneut.');
@@ -54,13 +56,15 @@ export class TaskService {
     return this.httpClient.post<Task>('http://localhost:8080/api/v1/tasks', task, { headers: this.getHeaders()})
       .pipe(
         tap(() => {
-          this.notificationService.createSuccessNotification('Aufgabe erfolgreich erstellt.');
-          this.router.navigate(['../tasks']).then(() => {});
+          this.router.navigate(['../tasks']).then(() => {
+            this.notificationService.createSuccessNotification('Aufgabe erfolgreich erstellt.');
+          });
         }),
         catchError((httpErrorResponse: HttpErrorResponse) => {
             if (httpErrorResponse.status === 401) {
-              this.notificationService.createErrorNotification('Ihre Sitzung ist abgelaufen. Bitte melden Sie sich erneut an.');
-              this.router.navigate(['login']).then(() => {});
+              this.router.navigate(['login']).then(() => {
+                this.notificationService.createErrorNotification('Ihre Sitzung ist abgelaufen. Bitte melden Sie sich erneut an.');
+              });
             } else {
               this.notificationService.createErrorNotification(
                 httpErrorResponse.error.message ? httpErrorResponse.error.message :
@@ -79,8 +83,9 @@ export class TaskService {
         }),
         catchError((httpErrorResponse: HttpErrorResponse) => {
             if (httpErrorResponse.status === 401) {
-              this.notificationService.createErrorNotification('Ihre Sitzung ist abgelaufen. Bitte melden Sie sich erneut an.');
-              this.router.navigate(['login']).then(() => {});
+              this.router.navigate(['login']).then(() => {
+                this.notificationService.createErrorNotification('Ihre Sitzung ist abgelaufen. Bitte melden Sie sich erneut an.');
+              });
             } else {
               this.notificationService.createErrorNotification(
                 httpErrorResponse.error.message ? httpErrorResponse.error.message :
