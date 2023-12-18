@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, Input, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, Input, OnChanges, OnInit, SimpleChanges, ViewChild} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {Router, RouterLink} from '@angular/router';
 import {StatusEnum} from '../shared/StatusEnum';
@@ -24,11 +24,12 @@ import {MatInputModule} from '@angular/material/input';
   templateUrl: './task-list.component.html',
   styleUrl: './task-list.component.scss'
 })
-export class TaskListComponent implements AfterViewInit, OnInit {
+export class TaskListComponent implements AfterViewInit, OnInit, OnChanges {
 
   protected readonly StatusEnum = StatusEnum;
 
   @Input() tab: string = 'open';
+  @Input() activeTab: string = '';
 
   displayedColumns: string[] = ['subject', 'creationDate', 'location', 'status'];
 
@@ -37,7 +38,18 @@ export class TaskListComponent implements AfterViewInit, OnInit {
   constructor(private _liveAnnouncer: LiveAnnouncer,
               private router: Router,
               private readonly taskService: TaskService,
-              readonly authService: AuthService) {}
+              readonly authService: AuthService) {
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+
+    if (this.activeTab === this.tab) {
+      this.taskService.getTasks(this.tab).subscribe((tasks: Task[]) => {
+        this.dataSource.data = tasks;
+      });
+    }
+  }
+
 
   @ViewChild(MatSort) sort: MatSort | undefined;
 
@@ -45,14 +57,6 @@ export class TaskListComponent implements AfterViewInit, OnInit {
     if (this.tab === 'forwarded') {
       this.displayedColumns.push('forwardedTo');
     }
-
-    this.taskService.getTasks(this.tab).subscribe((tasks: Task[]) => {
-      tasks.forEach((task: Task) => {
-        const newData: Task[] = [ ...this.dataSource.data];
-        newData.push(task);
-        this.dataSource.data = newData;
-      });
-    });
   }
 
   ngAfterViewInit() {
