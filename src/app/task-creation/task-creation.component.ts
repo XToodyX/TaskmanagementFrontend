@@ -30,8 +30,9 @@ export class TaskCreationComponent {
   taskCreationForm = this.formBuilder.group({
     subject: this.formBuilder.control('', [Validators.required]),
     description: this.formBuilder.control('', [Validators.required]),
-    location: this.formBuilder.control(''),
-    creator: this.formBuilder.control('', [Validators.required])
+    location: this.formBuilder.control('', [Validators.required]),
+    creator: this.formBuilder.control('', [Validators.required]),
+    assigneeUsername: this.formBuilder.control('', [Validators.required])
   });
 
   protected readonly LadenEnum = LadenEnum;
@@ -51,8 +52,9 @@ export class TaskCreationComponent {
     const newTask: TaskCreation = {
       subject: this.taskCreationForm.controls.subject.value,
       description: this.taskCreationForm.controls.description.value,
-      creator: this.taskCreationForm.controls.creator.value,
       location: this.taskCreationForm.controls.location.value,
+      creator: this.taskCreationForm.controls.creator.value,
+      assigneeUsername: this.taskCreationForm.controls.assigneeUsername.value,
       images: this.images
     };
 

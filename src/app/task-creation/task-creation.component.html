@@ -4,13 +4,13 @@
       <mat-label>Betreff</mat-label>
       <input matInput id="subject" type="text" formControlName="subject">
 
-      <mat-error *ngIf="taskCreationForm.controls.subject.hasError('required')">Bitte gebe hier in kurzen Stichpunkten dein Anliegen wieder</mat-error>
+      <mat-error *ngIf="taskCreationForm.controls.subject.hasError('required')">Bitte gebe in kurzen Stichpunkten dein Anliegen wieder</mat-error>
     </mat-form-field>
 
     <mat-form-field class="ms-4 mb-4 ml-2 mr-2">
       <mat-label>Beschreibung</mat-label>
       <textarea matInput id="description" type="text" formControlName="description"></textarea>
-      <mat-error *ngIf="taskCreationForm.controls.description.hasError('required')">Bitte gebe noch eine kleine kurze Beschreibung an</mat-error>
+      <mat-error *ngIf="taskCreationForm.controls.description.hasError('required')">Bitte gebe noch eine kleine, kurze Beschreibung an</mat-error>
     </mat-form-field>
 
     <mat-form-field *ngIf="this.authService.hasClaim(ClaimEnum.CHANGE)" class="ms-4 mb-4 ml-2 mr-2">
@@ -18,12 +18,22 @@
       <mat-select id="location" formControlName="location" required>
         <mat-option *ngFor="let location of LadenEnum | keyvalue" [value]="location.key">{{location.value}}</mat-option>
       </mat-select>
+      <mat-error *ngIf="taskCreationForm.controls.location.hasError('required')">Bitte wähle den zugehörigen Ort für die Aufgabe aus</mat-error>
     </mat-form-field>
 
     <mat-form-field class="ms-4 mb-4 ml-2 mr-2">
       <mat-label>Name des Erstellers</mat-label>
       <textarea matInput id="creator" type="text" formControlName="creator"></textarea>
-      <mat-error *ngIf="taskCreationForm.controls.creator.hasError('required')">Bitte gebe hier deinen Namen ein, somit können später eventuelle Rückfragen gestellt werden</mat-error>
+      <mat-error *ngIf="taskCreationForm.controls.creator.hasError('required')">Bitte gebe deinen Namen ein, somit können später eventuelle Rückfragen gestellt werden</mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="ms-4 mb-4 ml-2 mr-2">
+      <mat-label>Bearbeiter</mat-label>
+      <mat-select id="assigneeUsername" formControlName="assigneeUsername" required>
+        <mat-option value="sven687">Sven Herrmann</mat-option>
+        <mat-option value="weiß687">Weißenberger</mat-option>
+      </mat-select>
+      <mat-error *ngIf="taskCreationForm.controls.assigneeUsername.hasError('required')">Bitte wähle den Namen der Person aus, die diese Aufgabe bearbeiten soll</mat-error>
     </mat-form-field>
 
     <div class="ms-4 mb-4 ml-2 mr-2">
