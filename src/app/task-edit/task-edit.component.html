@@ -45,8 +45,11 @@
     </mat-form-field>
 
     <mat-form-field *ngIf="taskEditForm.controls.status.value === StatusEnum.Weitergeleitet" class="ms-4 mb-4 ml-2 mr-2">
-      <mat-label>Weitergeleitet an ...</mat-label>
-      <input matInput id="forwardedTo" type="text" formControlName="forwardedTo">
+      <mat-label>Weiterleiten an ...</mat-label>
+      <mat-select formControlName="forwardedTo">
+          <mat-option value="Zitzmann">Zitzmann</mat-option>
+          <mat-option value="Heid">Heid</mat-option>
+      </mat-select>
     </mat-form-field>
 
     <div class="ms-4 mb-4 ml-2 mr-2">
