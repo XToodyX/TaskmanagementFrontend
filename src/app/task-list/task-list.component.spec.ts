@@ -11,8 +11,8 @@ import {AuthService} from '../auth/auth.service';
 import {createMock} from '@testing-library/angular/jest-utils';
 
 const ui = {
-  rowHeader: byRole('row', {name: 'Betreff Erstellungsdatum Laden Status'}),
-  rowDataFirst: byRole('row', {name: 'Subject CreationDate Zentrale Wähle den Status'}),
+  rowHeader: byRole('row', {name: 'Laden Betreff Erstellungsdatum Status'}),
+  rowDataFirst: byRole('row', {name: 'Zentrale Subject CreationDate Wähle den Status'}),
   rows: byRole('row'),
   tableEmptyState: byText('Keine Aufgaben vorhanden'),
   addTaskButton: byRole('button', {name: 'Hinzufügen'})
