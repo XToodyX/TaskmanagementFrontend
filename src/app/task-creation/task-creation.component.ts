@@ -30,7 +30,7 @@ export class TaskCreationComponent {
   taskCreationForm = this.formBuilder.group({
     subject: this.formBuilder.control('', [Validators.required]),
     description: this.formBuilder.control('', [Validators.required]),
-    location: this.formBuilder.control('', [Validators.required]),
+    location: this.formBuilder.control(''),
     creator: this.formBuilder.control('', [Validators.required]),
     assigneeUsername: this.formBuilder.control('', [Validators.required])
   });
