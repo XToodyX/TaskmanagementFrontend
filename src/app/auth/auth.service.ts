@@ -52,7 +52,7 @@ export class AuthService {
 
     if (token != null) {
       const payload = atob(token.split('.')[1]); // decode payload of token
-      return JSON.parse(payload).claims;
+      return JSON.parse(payload).authorities;
     }
     return [''];
   }
