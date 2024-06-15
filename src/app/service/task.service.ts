@@ -6,6 +6,7 @@ import {TaskCreation} from '../shared/TaskCreation';
 import {TaskUpdate} from '../shared/TaskUpdate';
 import {NotificationService} from './notification.service';
 import {Router} from '@angular/router';
+import { StatusEnum } from '../shared/StatusEnum';
 
 @Injectable({
   providedIn: 'root'
@@ -94,6 +95,23 @@ export class TaskService {
             throw httpErrorResponse;
           }
         ));
+  }
+
+  getTasksByStatus(status: String): Observable<number> {
+    return this.httpClient.get<number>(`http://localhost:8080/api/v1/tasks/countByStatus?status=${status}`, { headers: this.getHeaders() })
+      .pipe(
+        catchError((httpErrorResponse: HttpErrorResponse) => {
+          if (httpErrorResponse.status === 401) {
+            this.router.navigate(['login']).then(() => {
+              this.notificationService.createErrorNotification('Ihre Sitzung ist abgelaufen. Bitte melden Sie sich erneut an.');
+            });
+          } else {
+            this.notificationService.createErrorNotification(
+              httpErrorResponse.error.message ? httpErrorResponse.error.message : 'Anzahl für Aufgaben der jeweilige Tabgruppe konnte nicht geladen werden');
+          }
+          throw httpErrorResponse;
+        }
+      ));
   }
 
   private getHeaders() {

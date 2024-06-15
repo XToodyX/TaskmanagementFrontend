@@ -1,12 +1,12 @@
 <div class="m-10">
   <mat-tab-group (selectedTabChange)="onTabChange($event)">
-    <mat-tab label="Offene Aufgaben">
+    <mat-tab label='Offene Aufgaben ({{openCount}})'>
       <app-task-list [activeTab]="activeTab"></app-task-list>
     </mat-tab>
-    <mat-tab label="Weitergeleitete Aufgaben">
+    <mat-tab label='Weitergeleitete Aufgaben ({{forwardedCount}})'>
       <app-task-list [tab]="'forwarded'" [activeTab]="activeTab"></app-task-list>
     </mat-tab>
-    <mat-tab label="Erledigte Aufgaben">
+    <mat-tab label='Erledigte Aufgaben ({{doneCount}})'>
       <app-task-list [tab]="'done'" [activeTab]="activeTab"></app-task-list>
     </mat-tab>
   </mat-tab-group>
