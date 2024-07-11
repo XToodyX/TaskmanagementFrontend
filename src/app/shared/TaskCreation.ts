@@ -6,5 +6,6 @@ export interface TaskCreation {
   location: LadenEnum | string;
   creator: string;
   assigneeUsername: string;
+  privateTask: boolean;
   images: string[];
 }

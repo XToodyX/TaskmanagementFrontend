@@ -15,11 +15,12 @@ import {ClaimEnum} from '../shared/ClaimEnum';
 import {MatIconModule} from '@angular/material/icon';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {NotificationService} from '../service/notification.service';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 @Component({
   selector: 'app-task-creation',
   standalone: true,
-  imports: [CommonModule, MatFormFieldModule, MatCardModule, MatIconModule, ReactiveFormsModule, MatButtonModule, MatInputModule, MatSelectModule, RouterLink, MatProgressSpinnerModule],
+  imports: [CommonModule, MatFormFieldModule, MatCardModule, MatIconModule, ReactiveFormsModule, MatButtonModule, MatInputModule, MatSelectModule, RouterLink, MatProgressSpinnerModule, MatCheckboxModule],
   templateUrl: './task-creation.component.html',
   styleUrl: './task-creation.component.scss'
 })
@@ -32,7 +33,8 @@ export class TaskCreationComponent {
     description: this.formBuilder.control('', [Validators.required]),
     location: this.formBuilder.control(''),
     creator: this.formBuilder.control('', [Validators.required]),
-    assigneeUsername: this.formBuilder.control('', [Validators.required])
+    assigneeUsername: this.formBuilder.control('', [Validators.required]),
+    privateTask: this.formBuilder.control(false)
   });
 
   protected readonly LadenEnum = LadenEnum;
@@ -55,6 +57,7 @@ export class TaskCreationComponent {
       location: this.taskCreationForm.controls.location.value,
       creator: this.taskCreationForm.controls.creator.value,
       assigneeUsername: this.taskCreationForm.controls.assigneeUsername.value,
+      privateTask: this.taskCreationForm.controls.privateTask.value,
       images: this.images
     };
 

@@ -16,7 +16,7 @@ export class TaskOverviewComponent implements OnInit {
   activeTab: string = 'open';
 
   openCount: number = 0;
-  forwardedCount: number = 0;
+  privateCount: number = 0;
   doneCount: number = 0;
 
   constructor(private taskService: TaskService) {}
@@ -27,6 +27,9 @@ export class TaskOverviewComponent implements OnInit {
         this.activeTab = 'open';
         break;
       case 1:
+        this.activeTab = 'private';
+        break;
+      case 2:
         this.activeTab = 'done';
         break;
     }
@@ -35,6 +38,10 @@ export class TaskOverviewComponent implements OnInit {
   ngOnInit() {
     this.taskService.getTasksByStatus('open').subscribe((count) => {
       this.openCount = count;
+    })
+
+    this.taskService.getTasksByStatus('private').subscribe((count) => {
+      this.privateCount = count;
     })
 
     this.taskService.getTasksByStatus('done').subscribe((count) => {

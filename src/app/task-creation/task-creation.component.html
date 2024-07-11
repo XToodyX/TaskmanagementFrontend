@@ -27,7 +27,7 @@
       <mat-error *ngIf="taskCreationForm.controls.creator.hasError('required')">Bitte gebe deinen Namen ein, somit können später eventuelle Rückfragen gestellt werden</mat-error>
     </mat-form-field>
 
-    <mat-form-field class="ms-4 mb-4 ml-2 mr-2">
+    <mat-form-field class="ms-4 ml-2 mr-2">
       <mat-label>Bearbeiter</mat-label>
       <mat-select id="assigneeUsername" formControlName="assigneeUsername" required>
         <mat-option value="sven687">Sven Herrmann</mat-option>
@@ -35,6 +35,8 @@
       </mat-select>
       <mat-error *ngIf="taskCreationForm.controls.assigneeUsername.hasError('required')">Bitte wähle den Namen der Person aus, die diese Aufgabe bearbeiten soll</mat-error>
     </mat-form-field>
+
+    <mat-checkbox class="ms-4 mb-4 ml-2 mr-2" formControlName="privateTask">Privat</mat-checkbox>
 
     <div class="ms-4 mb-4 ml-2 mr-2">
       <input type="file" accept="image/png, image/jpeg" (change)="onFileSelected($event)" multiple>
