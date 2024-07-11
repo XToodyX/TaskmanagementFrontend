@@ -27,9 +27,6 @@ export class TaskOverviewComponent implements OnInit {
         this.activeTab = 'open';
         break;
       case 1:
-        this.activeTab = 'forwarded';
-        break;
-      case 2:
         this.activeTab = 'done';
         break;
     }
