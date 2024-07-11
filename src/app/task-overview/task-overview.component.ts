@@ -36,16 +36,16 @@ export class TaskOverviewComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.taskService.getTasksByStatus('open').subscribe((count) => {
-      this.openCount = count;
+    this.taskService.getTasksByStatus('open').subscribe((openCount) => {
+      this.openCount = openCount;
     })
 
-    this.taskService.getTasksByStatus('private').subscribe((count) => {
-      this.privateCount = count;
+    this.taskService.getTasksByStatus('private').subscribe((privateCount) => {  
+      this.privateCount = privateCount;
     })
 
-    this.taskService.getTasksByStatus('done').subscribe((count) => {
-      this.doneCount = count;
+    this.taskService.getTasksByStatus('done').subscribe((doneCount) => {
+      this.doneCount = doneCount;
     })
   }
 }

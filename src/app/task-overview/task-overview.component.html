@@ -3,7 +3,7 @@
     <mat-tab label='Offene Aufgaben ({{openCount}})'>
       <app-task-list [activeTab]="activeTab"></app-task-list>
     </mat-tab>
-    <mat-tab label='Wiederkehrende Aufgaben ({{openCount}})'>
+    <mat-tab label='Wiederkehrende Aufgaben ({{privateCount}})'>
       <app-task-list [tab]="'private'" [activeTab]="activeTab"></app-task-list>
     </mat-tab>
     <mat-tab label='Erledigte Aufgaben ({{doneCount}})'>
