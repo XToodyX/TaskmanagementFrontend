@@ -42,7 +42,7 @@
       </mat-select>
     </mat-form-field>
 
-    <mat-form-field class="ms-4 mb-4 ml-2 mr-2">
+    <mat-form-field class="ms-4 mb-4 ml-2 mr-2" *ngIf="taskEditForm.controls.status.value === StatusEnum.Offen || taskEditForm.controls.status.value === StatusEnum.Bearbeitung">
       <mat-label>Weiterleiten an ...</mat-label>
       <mat-select formControlName="forwardedTo">
           <mat-option value="Zitzmann">Zitzmann</mat-option>
