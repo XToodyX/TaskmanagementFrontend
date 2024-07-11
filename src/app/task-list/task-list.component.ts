@@ -16,6 +16,7 @@ import {ClaimEnum} from '../shared/ClaimEnum';
 import {MatTabsModule} from '@angular/material/tabs';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MatInputModule} from '@angular/material/input';
+import { LadenEnum } from '../shared/LadenEnum';
 
 @Component({
   selector: 'app-task-list',
@@ -86,5 +87,9 @@ export class TaskListComponent implements AfterViewInit, OnChanges {
 
   routeToTaskEdit(taskId: string) {
     this.router.navigate([`../tasks/${taskId}`]).then(() => {});
+  }
+
+  getLadenEnumValue(key: keyof typeof LadenEnum): string {
+    return LadenEnum[key];
   }
 }

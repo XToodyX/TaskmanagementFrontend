@@ -42,13 +42,20 @@
       </mat-select>
     </mat-form-field>
 
-    <mat-form-field class="ms-4 mb-4 ml-2 mr-2">
-      <mat-label>Weiterleiten an ...</mat-label>
-      <mat-select formControlName="forwardedTo" [disabled]="taskEditForm.controls.status.value === StatusEnum.Erledigt">
-          <mat-option value="Zitzmann">Zitzmann</mat-option>
-          <mat-option value="Heid">Heid</mat-option>
-      </mat-select>
-    </mat-form-field>
+    <div class="flex items-center space-x-2 ms-4 mb-4 ml-2 mr-2">
+      <mat-form-field class="flex-grow w-3/4">
+        <mat-label>Weiterleiten an ...</mat-label>
+        <mat-select formControlName="forwardedTo" [disabled]="taskEditForm.controls.status.value === StatusEnum.Erledigt">
+            <mat-option value="Zitzmann">Zitzmann</mat-option>
+            <mat-option value="Heid">Heid</mat-option>
+        </mat-select>
+      </mat-form-field>
+    
+      <button mat-mini-fab aria-label="button to add new companies" 
+      class="w-1/4 flex justify-center mb-5 addGreen hover:bg-green-800" (click)="openCompanyCreationDialog($event)" [disabled]="!this.authService.hasClaim(ClaimEnum.CHANGE)">
+        <mat-icon>add</mat-icon>
+      </button>
+    </div>
 
     <div class="ms-4 mb-4 ml-2 mr-2">
       <input *ngIf="authService.hasClaim(ClaimEnum.CHANGE)" type="file" accept="image/png, image/jpeg"

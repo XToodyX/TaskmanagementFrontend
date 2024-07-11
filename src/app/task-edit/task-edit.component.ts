@@ -17,11 +17,14 @@ import {AuthService} from '../auth/auth.service';
 import {ClaimEnum} from '../shared/ClaimEnum';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {NotificationService} from '../service/notification.service';
+import { MatIconModule } from '@angular/material/icon';
+import { MatDialog } from '@angular/material/dialog';
+import { CompanyCreationDialogComponent } from '../company-creation-dialog/company-creation-dialog.component';
 
 @Component({
   selector: 'app-task-edit',
   standalone: true,
-  imports: [CommonModule, MatButtonModule, MatCardModule, MatFormFieldModule, MatInputModule, MatOptionModule, MatSelectModule, ReactiveFormsModule, RouterLink, MatProgressSpinnerModule],
+  imports: [CommonModule, MatButtonModule, MatCardModule, MatFormFieldModule, MatInputModule, MatOptionModule, MatSelectModule, ReactiveFormsModule, RouterLink, MatProgressSpinnerModule, MatIconModule],
   templateUrl: './task-edit.component.html',
   styleUrl: './task-edit.component.scss'
 })
@@ -35,11 +38,14 @@ export class TaskEditComponent implements OnInit {
               readonly authService: AuthService,
               private route: ActivatedRoute,
               private readonly router: Router,
-              private readonly notificationService: NotificationService) { }
+              private readonly notificationService: NotificationService,
+              private readonly companyCreationDialog: MatDialog
+            ) { }
 
   ngOnInit() {
     if (!this.authService.hasClaim(ClaimEnum.CHANGE)) {
       this.taskEditForm.disable();
+      
     }
     this.route.url.subscribe((value) => {
       this.taskId = +value[1].path;
@@ -110,5 +116,18 @@ export class TaskEditComponent implements OnInit {
         this.images.push(reader.result as string);
       };
     }
+  }
+
+  openCompanyCreationDialog(event: MouseEvent): void {
+    event.preventDefault(); // Verhindert das Standardverhalten
+    event.stopPropagation(); // Stoppt die Weiterleitung des Events
+  
+    // Öffnen Sie hier Ihren Dialog
+    const dialogRef = this.companyCreationDialog.open(CompanyCreationDialogComponent, {
+      width: '250px',
+      // Weitere Konfigurationen hier
+    });
+  
+    dialogRef.afterClosed().subscribe();
   }
 }
