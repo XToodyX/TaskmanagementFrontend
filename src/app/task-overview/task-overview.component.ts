@@ -40,10 +40,6 @@ export class TaskOverviewComponent implements OnInit {
       this.openCount = count;
     })
 
-    this.taskService.getTasksByStatus('forwarded').subscribe((count) => {
-      this.forwardedCount = count;
-    })
-
     this.taskService.getTasksByStatus('done').subscribe((count) => {
       this.doneCount = count;
     })

@@ -43,13 +43,11 @@
                       [(value)]="element.status" (valueChange)="onTaskChange(element)"
                       [class.open-select]="element.status === StatusEnum.Offen"
                       [class.in-work-select]="element.status === StatusEnum.Bearbeitung"
-                      [class.done-select]="element.status === StatusEnum.Erledigt"
-                      [class.blocked-select]="element.status === StatusEnum.Weitergeleitet">
+                      [class.done-select]="element.status === StatusEnum.Erledigt">
             <mat-option *ngFor="let state of StatusEnum | keyvalue" [value]="state.key"
                         [class.open-select]="state.value === StatusEnum.Offen"
                         [class.in-work-select]="state.value === StatusEnum.Bearbeitung"
                         [class.done-select]="state.value === StatusEnum.Erledigt"
-                        [class.blocked-select]="state.value === StatusEnum.Weitergeleitet"
             >{{state.key}}</mat-option>
           </mat-select>
         </mat-form-field>
@@ -57,7 +55,7 @@
     </ng-container>
 
     <!-- Weitergeleitet an Column -->
-    <ng-container *ngIf="tab.toString() === 'forwarded'" matColumnDef="forwardedTo">
+    <ng-container matColumnDef="forwardedTo">
       <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort on forwardedTo">
         Weitergeleitet an
       </th>

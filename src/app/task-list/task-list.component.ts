@@ -24,14 +24,14 @@ import {MatInputModule} from '@angular/material/input';
   templateUrl: './task-list.component.html',
   styleUrl: './task-list.component.scss'
 })
-export class TaskListComponent implements AfterViewInit, OnInit, OnChanges {
+export class TaskListComponent implements AfterViewInit, OnChanges {
 
   protected readonly StatusEnum = StatusEnum;
 
   @Input() tab: string = 'open';
   @Input() activeTab: string = '';
 
-  displayedColumns: string[] = ['location', 'subject', 'creationDate', 'status'];
+  displayedColumns: string[] = ['location', 'subject', 'creationDate', 'status', 'forwardedTo'];
 
   dataSource: MatTableDataSource<Task> = new MatTableDataSource();
 
@@ -52,12 +52,6 @@ export class TaskListComponent implements AfterViewInit, OnInit, OnChanges {
 
 
   @ViewChild(MatSort) sort: MatSort | undefined;
-
-  ngOnInit() {
-    if (this.tab === 'forwarded') {
-      this.displayedColumns.push('forwardedTo');
-    }
-  }
 
   ngAfterViewInit() {
     if (this.sort instanceof MatSort) {
