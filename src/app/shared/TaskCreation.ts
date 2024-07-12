@@ -7,5 +7,6 @@ export interface TaskCreation {
   creator: string;
   assigneeUsername: string;
   privateTask: boolean;
+  important: boolean;
   images: string[];
 }

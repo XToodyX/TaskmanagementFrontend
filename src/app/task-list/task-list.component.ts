@@ -32,7 +32,7 @@ export class TaskListComponent implements AfterViewInit, OnChanges {
   @Input() tab: string = 'open';
   @Input() activeTab: string = '';
 
-  displayedColumns: string[] = ['location', 'subject', 'creationDate', 'status', 'forwardedTo'];
+  displayedColumns: string[] = ['important', 'location', 'subject', 'creationDate', 'status', 'forwardedTo'];
 
   dataSource: MatTableDataSource<Task> = new MatTableDataSource();
 

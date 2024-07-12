@@ -38,6 +38,12 @@
 
     <mat-checkbox *ngIf="authService.hasClaim(ClaimEnum.CHANGE)" class="ms-4 mb-4 ml-2 mr-2" formControlName="privateTask">Privat</mat-checkbox>
 
+    <mat-checkbox class="ms-4 mb-4 ml-2 mr-2" formControlName="important" 
+    matTooltip="Für wirklich dringliche Aufgabe, ohne deren Erledigung teils wichtige arbeiten nicht möglich sind"
+    [matTooltipPosition]="'below'">
+      <span class="font-medium">Wichtig</span>
+    </mat-checkbox>
+
     <div class="ms-4 mb-4 ml-2 mr-2">
       <input type="file" accept="image/png, image/jpeg" (change)="onFileSelected($event)" multiple>
 

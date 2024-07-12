@@ -12,4 +12,5 @@ export interface Task {
   status?: StatusEnum;
   images: string[];
   forwardedTo: string | undefined;
+  important: boolean;
 }
