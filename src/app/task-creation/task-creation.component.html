@@ -36,7 +36,7 @@
       <mat-error *ngIf="taskCreationForm.controls.assigneeUsername.hasError('required')">Bitte wähle den Namen der Person aus, die diese Aufgabe bearbeiten soll</mat-error>
     </mat-form-field>
 
-    <mat-checkbox class="ms-4 mb-4 ml-2 mr-2" formControlName="privateTask">Privat</mat-checkbox>
+    <mat-checkbox *ngIf="authService.hasClaim(ClaimEnum.CHANGE)" class="ms-4 mb-4 ml-2 mr-2" formControlName="privateTask">Privat</mat-checkbox>
 
     <div class="ms-4 mb-4 ml-2 mr-2">
       <input type="file" accept="image/png, image/jpeg" (change)="onFileSelected($event)" multiple>

@@ -46,12 +46,11 @@
       <mat-form-field class="flex-grow w-3/4">
         <mat-label>Weiterleiten an ...</mat-label>
         <mat-select formControlName="forwardedTo" [disabled]="taskEditForm.controls.status.value === StatusEnum.Erledigt">
-            <mat-option value="Zitzmann">Zitzmann</mat-option>
-            <mat-option value="Heid">Heid</mat-option>
+            <mat-option *ngFor="let company of availableCompanies" [value]="company.name"> {{company.name}} ({{company.email}})</mat-option>
         </mat-select>
       </mat-form-field>
     
-      <button mat-mini-fab aria-label="button to add new companies" 
+      <button *ngIf="this.authService.hasClaim(ClaimEnum.CHANGE)" mat-mini-fab aria-label="button to add new companies" 
       class="w-1/4 flex justify-center mb-5 addGreen hover:bg-green-800" (click)="openCompanyCreationDialog($event)" [disabled]="!this.authService.hasClaim(ClaimEnum.CHANGE)">
         <mat-icon>add</mat-icon>
       </button>

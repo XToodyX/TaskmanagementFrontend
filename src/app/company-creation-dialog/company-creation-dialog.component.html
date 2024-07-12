@@ -1,8 +1,22 @@
 <h2 mat-dialog-title>Neue Firma erstellen</h2>
-<div mat-dialog-content>
-  <!-- Ihr Formular oder Inhalt hier -->
-</div>
-<div mat-dialog-actions>
-  <button mat-button [mat-dialog-close]="true">Erstellen</button>
-  <button mat-button [mat-dialog-close]="false">Abbrechen</button>
-</div>
+
+<form class="flex flex-col" [formGroup]="companyCreationForm" (ngSubmit)="onSubmit()">
+  <mat-form-field class="m-4">
+    <mat-label>Name der Firma</mat-label>
+    <input matInput id="companyName" type="text" formControlName="companyName">
+
+    <mat-error *ngIf="companyCreationForm.controls.companyName.hasError('required')">Bitte gebe hier den Namen des neu zu erstellenden Unternehmens an</mat-error>
+  </mat-form-field>
+
+  <mat-form-field class="m-4">
+    <mat-label>Email der Firma</mat-label>
+    <input matInput id="companyEmail" type="text" formControlName="companyEmail">
+
+    <mat-error *ngIf="companyCreationForm.controls.companyEmail.hasError('required') || companyCreationForm.controls.companyEmail.hasError('email')">Bitte gebe hier eine valide Email-Adresse für das Unternehmen an</mat-error>
+  </mat-form-field>
+
+  <div class="flex m-4 gap-3 justify-between">
+    <button mat-raised-button class="mr-2" color="primary" type="submit" [mat-dialog-close]="true" [disabled]="!companyCreationForm.valid">Erstellen</button>
+    <button mat-raised-button [mat-dialog-close]="false">Abbrechen</button>
+  </div>
+</form>

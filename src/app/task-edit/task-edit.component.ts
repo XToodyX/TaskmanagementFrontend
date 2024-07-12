@@ -20,6 +20,8 @@ import {NotificationService} from '../service/notification.service';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDialog } from '@angular/material/dialog';
 import { CompanyCreationDialogComponent } from '../company-creation-dialog/company-creation-dialog.component';
+import { Company } from '../shared/Company';
+import { CompanyService } from '../service/company.service';
 
 @Component({
   selector: 'app-task-edit',
@@ -33,13 +35,16 @@ export class TaskEditComponent implements OnInit {
   taskId: number = 0;
   images: string[] = [];
 
+  availableCompanies: Company[] = []
+
   constructor(private readonly taskService: TaskService,
               private formBuilder: NonNullableFormBuilder,
               readonly authService: AuthService,
               private route: ActivatedRoute,
               private readonly router: Router,
               private readonly notificationService: NotificationService,
-              private readonly companyCreationDialog: MatDialog
+              private readonly companyCreationDialog: MatDialog,
+              private readonly companyService: CompanyService
             ) { }
 
   ngOnInit() {
@@ -67,6 +72,10 @@ export class TaskEditComponent implements OnInit {
         this.taskEditForm.controls['forwardedTo'].setValue(task.forwardedTo);
       }
     });
+
+    this.companyService.getCompanies().subscribe((companies: Company[]) => {
+      this.availableCompanies = companies
+    })
   }
 
   taskEditForm = this.formBuilder.group({
@@ -82,7 +91,7 @@ export class TaskEditComponent implements OnInit {
 
   onSubmit() {
     this.loading.set(true);
-
+    
     const task: TaskUpdate = {
       taskId: this.taskId,
       subject: this.taskEditForm.controls.subject.value,
@@ -122,10 +131,8 @@ export class TaskEditComponent implements OnInit {
     event.preventDefault(); // Verhindert das Standardverhalten
     event.stopPropagation(); // Stoppt die Weiterleitung des Events
   
-    // Öffnen Sie hier Ihren Dialog
     const dialogRef = this.companyCreationDialog.open(CompanyCreationDialogComponent, {
-      width: '250px',
-      // Weitere Konfigurationen hier
+      width: '35%'
     });
   
     dialogRef.afterClosed().subscribe();
