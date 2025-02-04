@@ -30,7 +30,9 @@
             "prefix": "app",
             "style": "kebab-case"
           }
-        ]
+        ],
+        "semi": "error",
+        "quotes": ["error", "single"]
       }
     },
     {

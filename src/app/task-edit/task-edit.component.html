@@ -1,0 +1,76 @@
+<mat-card class="m-10">
+  <form class="flex flex-col" [formGroup]="taskEditForm" (ngSubmit)="onSubmit()">
+    <mat-form-field class="m-4">
+      <mat-label>Betreff</mat-label>
+      <input matInput id="subject" type="text" formControlName="subject">
+
+      <mat-error *ngIf="taskEditForm.controls.subject.hasError('required')">Bitte gebe hier in kurzen Stichpunkten dein Anliegen wieder</mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="ms-4 mb-4 ml-2 mr-2">
+      <mat-label>Beschreibung</mat-label>
+      <textarea matInput id="description" type="text" formControlName="description"></textarea>
+      <mat-error *ngIf="taskEditForm.controls.description.hasError('required')">Bitte gebe noch eine kleine kurze Beschreibung an</mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="ms-4 mb-4 ml-2 mr-2">
+      <mat-label>Ort</mat-label>
+      <input matInput id="location" type="text" formControlName="location" readonly>
+    </mat-form-field>
+
+    <mat-form-field class="ms-4 mb-4 ml-2 mr-2">
+      <mat-label>Ersteller</mat-label>
+      <textarea matInput id="creator" type="text" formControlName="creator" readonly></textarea>
+    </mat-form-field>
+
+    <mat-form-field class="ms-4 mb-4 ml-2 mr-2">
+      <mat-label>Bearbeiter</mat-label>
+      <input matInput id="assignee" type="text" formControlName="assignee" readonly>
+    </mat-form-field>
+
+    <mat-form-field class="ms-4 mb-4 ml-2 mr-2">
+      <mat-label>Wähle den Status</mat-label>
+      <mat-select id="status" formControlName="status"
+                  [class.open-select]="taskEditForm.controls.status.value === StatusEnum.Offen"
+                  [class.in-work-select]="taskEditForm.controls.status.value === StatusEnum.Bearbeitung"
+                  [class.done-select]="taskEditForm.controls.status.value === StatusEnum.Erledigt">
+        <mat-option *ngFor="let state of StatusEnum | keyvalue" [value]="state.key"
+                    [class.open-select]="state.value === StatusEnum.Offen"
+                    [class.in-work-select]="state.value === StatusEnum.Bearbeitung"
+                    [class.done-select]="state.value === StatusEnum.Erledigt"
+        >{{state.key}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <div class="flex items-center space-x-2 ms-4 mb-4 ml-2 mr-2">
+      <mat-form-field class="flex-grow w-3/4">
+        <mat-label>Weiterleiten an ...</mat-label>
+        <mat-select formControlName="forwardedTo" [disabled]="taskEditForm.controls.status.value === StatusEnum.Erledigt">
+            <mat-option *ngFor="let company of availableCompanies" [value]="company.name"> {{company.name}} ({{company.email}})</mat-option>
+        </mat-select>
+      </mat-form-field>
+    
+      <button *ngIf="this.authService.hasClaim(ClaimEnum.CHANGE)" mat-mini-fab aria-label="button to add new companies" 
+      class="w-1/4 flex justify-center mb-5 addGreen hover:bg-green-800" (click)="openCompanyCreationDialog($event)" [disabled]="!this.authService.hasClaim(ClaimEnum.CHANGE)">
+        <mat-icon>add</mat-icon>
+      </button>
+    </div>
+
+    <div class="ms-4 mb-4 ml-2 mr-2">
+      <input *ngIf="authService.hasClaim(ClaimEnum.CHANGE)" type="file" accept="image/png, image/jpeg"
+             (change)="onFileSelected($event)" multiple>
+      <div  class="flex flex-row flex-wrap mt-2 w-full space-x-1 space-y-1">
+        <img *ngFor="let image of images" [src]="image" alt="image" class="object-scale-down" height="100px" width="150px">
+      </div>
+    </div>
+
+    <p class="ms-4 mb-4 ml-2 mr-2">Erstellt am: {{taskEditForm.controls.creationDate.value}}</p>
+
+    <div class="flex m-4 gap-3">
+      <button *ngIf="!loading()" mat-raised-button class="mr-2" color="primary" type="submit"
+              [disabled]="taskEditForm.invalid || !authService.hasClaim(ClaimEnum.CHANGE)">Speichern</button>
+      <mat-spinner *ngIf="loading()" diameter="35"></mat-spinner>
+      <button mat-raised-button type="button" routerLink="../../tasks">Abbrechen</button>
+    </div>
+  </form>
+</mat-card>

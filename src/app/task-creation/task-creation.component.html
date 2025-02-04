@@ -1,0 +1,63 @@
+<mat-card class="m-10">
+  <form class="flex flex-col" [formGroup]="taskCreationForm" (ngSubmit)="onSubmit()">
+    <mat-form-field class="m-4">
+      <mat-label>Betreff</mat-label>
+      <input matInput id="subject" type="text" formControlName="subject">
+
+      <mat-error *ngIf="taskCreationForm.controls.subject.hasError('required')">Bitte gebe in kurzen Stichpunkten dein Anliegen wieder</mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="ms-4 mb-4 ml-2 mr-2">
+      <mat-label>Beschreibung</mat-label>
+      <textarea matInput id="description" type="text" formControlName="description"></textarea>
+      <mat-error *ngIf="taskCreationForm.controls.description.hasError('required')">Bitte gebe noch eine kleine, kurze Beschreibung an</mat-error>
+    </mat-form-field>
+
+    <mat-form-field *ngIf="this.authService.hasClaim(ClaimEnum.CHANGE)" class="ms-4 mb-4 ml-2 mr-2">
+      <mat-label>Ort</mat-label>
+      <mat-select id="location" formControlName="location" required>
+        <mat-option *ngFor="let location of LadenEnum | keyvalue" [value]="location.key">{{location.value}}</mat-option>
+      </mat-select>
+      <mat-error *ngIf="taskCreationForm.controls.location.hasError('required')">Bitte wähle den zugehörigen Ort für die Aufgabe aus</mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="ms-4 mb-4 ml-2 mr-2">
+      <mat-label>Name des Erstellers</mat-label>
+      <textarea matInput id="creator" type="text" formControlName="creator"></textarea>
+      <mat-error *ngIf="taskCreationForm.controls.creator.hasError('required')">Bitte gebe deinen Namen ein, somit können später eventuelle Rückfragen gestellt werden</mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="ms-4 ml-2 mr-2">
+      <mat-label>Bearbeiter</mat-label>
+      <mat-select id="assigneeUsername" formControlName="assigneeUsername" required>
+        <mat-option value="max687">Max Mustermann</mat-option>
+        <mat-option value="sarah687">Sarah Mustermann</mat-option>
+      </mat-select>
+      <mat-error *ngIf="taskCreationForm.controls.assigneeUsername.hasError('required')">Bitte wähle den Namen der Person aus, die diese Aufgabe bearbeiten soll</mat-error>
+    </mat-form-field>
+
+    <mat-checkbox *ngIf="authService.hasClaim(ClaimEnum.CHANGE)" class="ms-4 mb-4 ml-2 mr-2" formControlName="privateTask">Privat</mat-checkbox>
+
+    <mat-checkbox class="ms-4 mb-4 ml-2 mr-2" formControlName="important" 
+    matTooltip="Für wirklich dringliche Aufgabe, ohne deren Erledigung teils wichtige arbeiten nicht möglich sind"
+    [matTooltipPosition]="'below'">
+      <span class="font-medium">Wichtig</span>
+    </mat-checkbox>
+
+    <div class="ms-4 mb-4 ml-2 mr-2">
+      <input type="file" accept="image/png, image/jpeg" (change)="onFileSelected($event)" multiple>
+
+      <div  class="flex flex-row flex-wrap mt-2 w-full space-x-1 space-y-1">
+        <img *ngFor="let image of images" [src]="image" alt="image" class="object-scale-down" height="100px" width="150px">
+      </div>
+    </div>
+
+    <div class="flex m-4 gap-3">
+      <button *ngIf="!loading()" mat-raised-button class="mr-2" color="primary" type="submit" [disabled]="taskCreationForm.invalid">
+        Anlegen
+      </button>
+      <mat-spinner *ngIf="loading()" diameter="35"></mat-spinner>
+      <button mat-raised-button routerLink="../tasks" type="button">Abbrechen</button>
+    </div>
+  </form>
+</mat-card>
