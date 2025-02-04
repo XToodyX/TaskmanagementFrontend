@@ -1,9 +1,9 @@
-import {LadenEnum} from './LadenEnum';
+import {StoreEnum} from './LadenEnum';
 
 export interface TaskCreation {
   subject: string;
   description: string;
-  location: LadenEnum | string;
+  location: StoreEnum | string;
   creator: string;
   assigneeUsername: string;
   privateTask: boolean;

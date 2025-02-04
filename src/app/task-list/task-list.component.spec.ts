@@ -4,7 +4,7 @@ import {HttpClientTestingModule} from '@angular/common/http/testing';
 import {byRole, byText} from 'testing-library-selector';
 import {TaskService} from '../service/task.service';
 import {of} from 'rxjs';
-import {LadenEnum} from '../shared/LadenEnum';
+import {StoreEnum} from '../shared/LadenEnum';
 import {StatusEnum} from '../shared/StatusEnum';
 import {Task} from '../shared/Task';
 import {AuthService} from '../auth/auth.service';
@@ -102,7 +102,7 @@ describe('TaskListComponent',() => {
       subject: 'Subject',
       description: 'Description',
       creator: 'Creator',
-      location: LadenEnum.Zentrale,
+      location: StoreEnum.Zentrale,
       creationDate: 'CreationDate',
       assignee: 'Assignee',
       status: StatusEnum.Offen,

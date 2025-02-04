@@ -1,4 +1,4 @@
-import {LadenEnum} from './LadenEnum';
+import {StoreEnum} from './LadenEnum';
 import {StatusEnum} from './StatusEnum';
 
 export interface Task {
@@ -6,7 +6,7 @@ export interface Task {
   subject: string;
   description: string;
   creator: string;
-  location: LadenEnum;
+  location: StoreEnum;
   creationDate?: string;
   assignee: string;
   status?: StatusEnum;

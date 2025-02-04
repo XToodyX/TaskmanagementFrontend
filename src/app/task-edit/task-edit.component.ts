@@ -7,7 +7,7 @@ import {MatInputModule} from '@angular/material/input';
 import {MatOptionModule} from '@angular/material/core';
 import {MatSelectModule} from '@angular/material/select';
 import {NonNullableFormBuilder, ReactiveFormsModule, Validators} from '@angular/forms';
-import {LadenEnum} from '../shared/LadenEnum';
+import {StoreEnum} from '../shared/LadenEnum';
 import {TaskService} from '../service/task.service';
 import {StatusEnum} from '../shared/StatusEnum';
 import {Task} from '../shared/Task';
@@ -58,7 +58,7 @@ export class TaskEditComponent implements OnInit {
     this.taskService.getTaskById(this.taskId).subscribe((task: Task) => {
       this.taskEditForm.controls['subject'].setValue(task.subject);
       this.taskEditForm.controls['description'].setValue(task.description);
-      this.taskEditForm.controls['location'].setValue(LadenEnum[task.location as keyof typeof LadenEnum]);
+      this.taskEditForm.controls['location'].setValue(StoreEnum[task.location as keyof typeof StoreEnum]);
       this.taskEditForm.controls['creator'].setValue(task.creator);
       this.taskEditForm.controls['assignee'].setValue(task.assignee);
       if (task.status != undefined) {

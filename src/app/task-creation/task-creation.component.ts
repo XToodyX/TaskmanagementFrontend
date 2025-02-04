@@ -8,7 +8,7 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatInputModule} from '@angular/material/input';
 import {MatSelectModule} from '@angular/material/select';
 import {TaskService} from '../service/task.service';
-import {LadenEnum} from '../shared/LadenEnum';
+import {StoreEnum} from '../shared/LadenEnum';
 import {TaskCreation} from '../shared/TaskCreation';
 import {AuthService} from '../auth/auth.service';
 import {ClaimEnum} from '../shared/ClaimEnum';
@@ -39,7 +39,7 @@ export class TaskCreationComponent {
     important: this.formBuilder.control(false)
   });
 
-  protected readonly LadenEnum = LadenEnum;
+  protected readonly LadenEnum = StoreEnum;
   protected readonly ClaimEnum = ClaimEnum;
   loading: WritableSignal<boolean> = signal(false);
 
